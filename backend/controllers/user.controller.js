@@ -48,7 +48,7 @@ exports.deleteUser = (req, res, next) => {
                 });
             }*/
     UserModel.findOne({ _id: req.params.id })
-      .then((user) => {
+      .then(() => {
         // const filename = user.imageUrl.split('/images/')[1];
         // fs.unlink(`images/${filename}`, () => {
         UserModel.deleteOne({ _id: req.params.id })
