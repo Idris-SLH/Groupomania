@@ -1,16 +1,18 @@
-// PARCOURS UTILISATEURS 
-const router = require('express').Router();
-const userController = require('../controllers/user.controller')
-const authController = require('../controllers/auth.controller')
+// PARCOURS UTILISATEURS
+const router = require("express").Router();
+const userController = require("../controllers/user.controller");
+const authController = require("../controllers/auth.controller");
+const multer = require('../middleware/multer.middleware');
 
-router.post('/signup', authController.signUp);
-router.post('/login', authController.login);
-router.get('/logout', authController.logout);
+// authentification
+router.post("/signup", authController.signUp);
+router.post("/login", authController.logIn);
+router.get("/logout", authController.logOut);
 
-router.get('/', userController.getAllUsers);
-router.get('/:id', userController.getOneUser);
-router.put('/:id', userController.modifyUser);
-router.delete('/:id', userController.deleteUser);
-
+// user routes
+router.get("/", userController.getAllUsers);
+router.get("/:id", userController.getOneUser);
+router.put("/:id", multer, userController.modifyUser);
+router.delete("/:id", multer, userController.deleteUser);
 
 module.exports = router;
