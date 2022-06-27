@@ -12,8 +12,6 @@ const postSchema = new mongoose.Schema(
       type: [
         {
           commenterId: String,
-          commenterSurname: String,
-          commenterFirstname: String,
           text: String,
           usersLiked: { type: [String], required: true },
           timestamp: Number,

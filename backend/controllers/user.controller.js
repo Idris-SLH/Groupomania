@@ -1,4 +1,5 @@
 const UserModel = require("../models/user.model");
+const fs = require("fs");
 
 exports.getAllUsers = (req, res, next) => {
   UserModel.find()
@@ -14,26 +15,27 @@ exports.getOneUser = (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 };
 
-exports.modifyUser = (req, res, next) => {
+exports.updateUser = (req, res, next) => {
   const userObject = req.file
     ? {
-        ...JSON.parse(req.body.user),
-        imageUrl: `${req.protocol}://${req.get("host")}/images/${
+        ...req.body,
+        picture: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
       }
     : { ...req.body };
   UserModel.findOne({ _id: req.params.id })
     .then((user) => {
-      const filename = user.imageUrl.split("/images/")[1];
-      fs.unlink(`images/${filename}`, () => {
-        UserModel.updateOne(
-          { _id: req.params.id },
-          { ...userObject, _id: req.params.id }
-        )
-          .then(() => res.status(200).json({ message: "Profile updated !" }))
-          .catch((error) => res.status(400).json({ error }));
-      });
+      const filename = user.picture.split("/images/")[1];
+      if (filename !== "default.png" && req.file) {
+        fs.unlink(`images/${filename}`, () => {});
+      }
+      UserModel.updateOne(
+        { _id: req.params.id },
+        { ...userObject, _id: req.params.id }
+      )
+        .then(() => res.status(200).json({ message: "Profile updated !" }))
+        .catch((error) => res.status(400).json({ error }));
     })
     .catch((error) => res.status(500).json({ error }));
 };
@@ -51,14 +53,37 @@ exports.deleteUser = (req, res, next) => {
                 });
             }*/
     UserModel.findOne({ _id: req.params.id })
-      .then(() => {
-        const filename = user.imageUrl.split("/images/")[1];
-        fs.unlink(`images/${filename}`, () => {
-          UserModel.deleteOne({ _id: req.params.id })
-            .then(() => res.status(200).json({ message: "User deleted !" }))
-            .catch((error) => res.status(400).json({ error }));
-        });
+      .then((user) => {
+        const filename = user.picture.split("/images/")[1];
+        if (filename !== "default.png") {
+          fs.unlink(`images/${filename}`, () => {});
+        }
+        UserModel.deleteOne({ _id: req.params.id })
+          .then(() => res.status(200).json({ message: "User deleted !" }))
+          .catch((error) => res.status(400).json({ error }));
       })
       .catch((error) => res.status(500).json({ error }));
   });
+};
+
+exports.deleteUserAvatar = (req, res, next) => {
+  UserModel.findOne({ _id: req.params.id })
+    .then((user) => {
+      const filename = user.picture.split("/images/")[1];
+      if (filename == "default.png") {
+        return res.status(401).json({ error: "Unautorized" });
+      }
+      fs.unlink(`images/${filename}`, () => {
+        UserModel.updateOne(
+          { _id: req.params.id },
+          {
+            picture: `${req.protocol}://${req.get("host")}/images/default.png`,
+            _id: req.params.id,
+          }
+        )
+          .then(() => res.status(200).json({ message: "Avatar deleted !" }))
+          .catch((error) => res.status(400).json({ error }));
+      });
+    })
+    .catch((error) => res.status(500).json({ error }));
 };

@@ -31,7 +31,10 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     job: { type: String, maxlenght: 40 },
     age: { type: Date, trim: true },
-    picture: { type: String /*, default: './uploads/profil/default.png'*/ },
+    picture: {
+      type: String,
+      default: "http://localhost:5000/images/default.png",
+    },
     role: { type: String, default: "USER" },
   },
   {

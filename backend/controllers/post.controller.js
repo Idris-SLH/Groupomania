@@ -2,14 +2,18 @@ const PostModel = require("../models/post.model");
 const fs = require("fs");
 
 exports.createPost = (req, res, next) => {
-  // const postObject = JSON.parse(req.body.PostModel);
-  // delete sauceObject._id;
+  const postObject = req.file
+    ? {
+        ...req.body,
+        picture: `${req.protocol}://${req.get("host")}/images/${
+          req.file.filename
+        }`,
+      }
+    : { ...req.body };
   const newPost = new PostModel({
-    ...req.body,
-    imageUrl: `${req.protocol}://${req.get("host")}/images/${
-      req.file.filename
-    }`,
+    ...postObject,
   });
+  console.log(req.body);
   newPost
     .save()
     .then(() => res.status(201).json({ message: "Post created !" }))
@@ -27,22 +31,27 @@ exports.updatePost = (req, res, next) => {
   const postObject = req.file
     ? {
         ...req.body,
-        imageUrl: `${req.protocol}://${req.get("host")}/images/${
+        picture: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
       }
     : { ...req.body };
   PostModel.findOne({ _id: req.params.id })
     .then((post) => {
-      const filename = post.imageUrl.split("/images/")[1];
-      fs.unlink(`images/${filename}`, () => {
-        PostModel.updateOne(
-          { _id: req.params.id },
-          { ...postObject, _id: req.params.id }
-        )
-          .then(() => res.status(200).json({ message: "Post updated !" }))
-          .catch((error) => res.status(400).json({ error }));
-      });
+      // Si changement, retourne 1
+      if (req.file && post.picture) {
+        // Si image envoyé ET image dans le post
+        const filename = post.picture.split("/images/")[1]; // Supprimer image
+        fs.unlink(`images/${filename}`, () => {});
+      }
+      // Si image envoyé ET pas d'image dans le post
+      // Si 0 next();
+      PostModel.updateOne(
+        { _id: req.params.id },
+        { ...postObject, _id: req.params.id }
+      )
+        .then(() => res.status(200).json({ message: "Post updated !" }))
+        .catch((error) => res.status(400).json({ error }));
     })
     .catch((error) => res.status(500).json({ error }));
 };
@@ -60,16 +69,39 @@ exports.deletePost = (req, res, next) => {
                     });
                 }*/
     PostModel.findOne({ _id: req.params.id })
-      .then(() => {
-        const filename = user.imageUrl.split("/images/")[1];
-        fs.unlink(`images/${filename}`, () => {
-          PostModel.deleteOne({ _id: req.params.id })
-            .then(() => res.status(200).json({ message: "Post deleted !" }))
-            .catch((error) => res.status(400).json({ error }));
-        });
+      .then((post) => {
+        if (post.picture) {
+          const filename = post.picture.split("/images/")[1];
+          fs.unlink(`images/${filename}`, () => {});
+        }
+        PostModel.deleteOne({ _id: req.params.id })
+          .then(() => res.status(200).json({ message: "Post deleted !" }))
+          .catch((error) => res.status(400).json({ error }));
       })
       .catch((error) => res.status(500).json({ error }));
   });
+};
+
+exports.deletePicturePost = (req, res, next) => {
+  PostModel.findOne({ _id: req.params.id })
+    .then((post) => {
+      const filename = post.picture.split("/images/")[1];
+      fs.unlink(`images/${filename}`, () => {
+        PostModel.updateOne(
+          { _id: req.params.id },
+          {
+            $unset: {
+              picture: `${req.protocol}://${req.get(
+                "host"
+              )}/images/${filename}`,
+            },
+          }
+        )
+          .then(() => res.status(200).json({ message: "Picture deleted !" }))
+          .catch((error) => res.status(400).json({ error }));
+      });
+    })
+    .catch((error) => res.status(500).json({ error }));
 };
 
 exports.likePost = (req, res, next) => {
@@ -97,4 +129,3 @@ exports.likePost = (req, res, next) => {
     })
     .catch((error) => res.status(401).json({ error }));
 };
-

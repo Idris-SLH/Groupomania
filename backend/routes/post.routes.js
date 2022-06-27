@@ -9,6 +9,7 @@ router.post("/", multer, postController.createPost);
 router.get("/", postController.readPost);
 router.put("/:id", multer, postController.updatePost);
 router.delete("/:id", multer, postController.deletePost);
+router.patch("/:id/picture", multer, postController.deletePicturePost);
 router.patch("/:id", postController.likePost);
 
 // comments
