@@ -12,7 +12,7 @@ const postSchema = new mongoose.Schema(
       type: [
         {
           commenterId: String,
-          text: String,
+          message: String,
           usersLiked: { type: [String], required: true },
           timestamp: Number,
         },

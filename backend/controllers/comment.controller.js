@@ -7,7 +7,7 @@ exports.commentPost = (req, res, next) => {
       $push: {
         comments: {
           commenterId: req.body.commenterId,
-          text: req.body.text,
+          message: req.body.message,
           timestamp: new Date().getTime(),
         },
       },
@@ -15,7 +15,7 @@ exports.commentPost = (req, res, next) => {
   )
     .then((post) => {
       // Push l'userId dans l'Array usersLiked
-      res.status(200).json({ message: "Post commented !" });
+      res.status(200).json({ message: "Comment posted !" });
     })
     .catch((error) => res.status(401).json({ error }));
 };
@@ -26,7 +26,8 @@ exports.updateCommentPost = (req, res, next) => {
       const newComment = post.comments.find((comment) =>
         comment._id.equals(req.body.commentId)
       );
-      newComment.text = req.body.text;
+      newComment.message = req.body.message;
+      newComment.commenterId = req.body.commenterId;
       post
         .save()
         .then(() => res.status(200).json({ message: "Comment updated !" }))

@@ -1,4 +1,5 @@
 const PostModel = require("../models/post.model");
+const UserModel = require("../models/user.model");
 const fs = require("fs");
 
 exports.createPost = (req, res, next) => {
@@ -13,7 +14,6 @@ exports.createPost = (req, res, next) => {
   const newPost = new PostModel({
     ...postObject,
   });
-  console.log(req.body);
   newPost
     .save()
     .then(() => res.status(201).json({ message: "Post created !" }))
@@ -128,4 +128,63 @@ exports.likePost = (req, res, next) => {
       }
     })
     .catch((error) => res.status(401).json({ error }));
+  };
+  
+  exports.getNameById = (req, res, next) => {
+    PostModel.findOne({ _id: req.params.id })
+      .then((post) => {
+        UserModel.findOne({ _id: post.posterId })
+          .then((user) => {
+            const posterName = user.firstname + " " + user.surname;
+            res.status(201).json({ posterName });
+          })
+          .catch((error) => res.status(401).json({ error }));
+      })
+      .catch((error) => res.status(500).json({ error }));
+  };
+  
+  exports.getCommentNameById = (req, res, next) => {
+    PostModel.findOne({ _id: req.params.id })
+      .then((post) => {
+        const comments = post.comments;
+        const userId = [];
+        comments.forEach(function (comment) {
+          userId.push(comment.commenterId);
+        });
+        UserModel.find({ _id: userId })
+          .then((users) => {
+            const userName = [];
+            users.forEach(function (user) {
+              userName.push(user.firstname + " " + user.surname);
+            });
+            res.status(201).json({ userName });        })
+          .catch((error) => res.status(401).json({ error }));
+      })
+      .catch((error) => res.status(500).json({ error }));
+  };
+
+exports.getNameByIdLikes = (req, res, next) => {
+  PostModel.findOne({ _id: req.params.id })
+    .then((post) => {
+      UserModel.find({ _id: post.usersLiked })
+        .then((users) => {
+          const likeName = [];
+          users.forEach(function (user) {
+            likeName.push(user.firstname + " " + user.surname);
+          });
+          res.status(201).json({ likeName });
+        })
+        .catch((error) => res.status(401).json({ error }));
+    })
+    .catch((error) => res.status(500).json({ error }));
 };
+
+
+// function getNameById(userId) {
+//   UserModel.findOne({ _id: userId })
+//     .then((user) => {
+//       const userName = user.firstname + " " + user.surname;
+//       res.status(201).json({ userName });
+//     })
+//     .catch((error) => res.status(401).json({ error }));
+// }

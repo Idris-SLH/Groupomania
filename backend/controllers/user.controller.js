@@ -3,7 +3,7 @@ const fs = require("fs");
 
 exports.getAllUsers = (req, res, next) => {
   UserModel.find()
-    .select("-password")
+    .select("-password -role -updatedAt -__v")
     .then((users) => res.status(200).json(users))
     .catch((error) => res.status(400).json({ error }));
 };
@@ -32,7 +32,7 @@ exports.updateUser = (req, res, next) => {
       }
       UserModel.updateOne(
         { _id: req.params.id },
-        { ...userObject, _id: req.params.id }
+        { ...userObject, _id: req.params.id, password: user.password }
       )
         .then(() => res.status(200).json({ message: "Profile updated !" }))
         .catch((error) => res.status(400).json({ error }));

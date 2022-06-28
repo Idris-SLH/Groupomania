@@ -1,16 +1,18 @@
 // MIDDLEWARE MULTER
 const multer = require("multer");
 
+// CONTROLE FORMAT ET SIZE /!\
+
 // Format des images
 const MIME_TYPES = {
   "image/jpg": "jpg",
   "image/jpeg": "jpg",
   "image/png": "png",
   "image/gif": "gif",
+  "image/webp": "webp",
 };
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    console.log(req.url);
     if (req.url == "/user") {
       return callback(null, "images/avatar");
     }
