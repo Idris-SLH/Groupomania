@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema(
   {
-    posterId: { type: String, required: true },
+    userId: { type: String, required: true },
     message: { type: String, trim: true, maxlenght: 500 },
     picture: { type: String },
     video: { type: String },
@@ -11,7 +11,7 @@ const postSchema = new mongoose.Schema(
     comments: {
       type: [
         {
-          commenterId: String,
+          userId: String,
           message: String,
           usersLiked: { type: [String], required: true },
           timestamp: Number,

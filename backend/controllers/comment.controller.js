@@ -1,33 +1,36 @@
 const PostModel = require("../models/post.model");
+const UserModel = require("../models/user.model");
 
+// CREATE COMMENT
 exports.commentPost = (req, res, next) => {
   PostModel.findByIdAndUpdate(
     { _id: req.params.id },
     {
       $push: {
         comments: {
-          commenterId: req.body.commenterId,
+          userId: req.body.userId,
           message: req.body.message,
           timestamp: new Date().getTime(),
         },
       },
     }
   )
-    .then((post) => {
+    .then(() => {
       // Push l'userId dans l'Array usersLiked
       res.status(200).json({ message: "Comment posted !" });
     })
     .catch((error) => res.status(401).json({ error }));
 };
 
-exports.updateCommentPost = (req, res, next) => {
+
+// UPDATE COMMENT
+exports.updateComment = (req, res, next) => {
   PostModel.findOne({ _id: req.params.id })
     .then((post) => {
       const newComment = post.comments.find((comment) =>
         comment._id.equals(req.body.commentId)
       );
       newComment.message = req.body.message;
-      newComment.commenterId = req.body.commenterId;
       post
         .save()
         .then(() => res.status(200).json({ message: "Comment updated !" }))
@@ -37,7 +40,8 @@ exports.updateCommentPost = (req, res, next) => {
     .catch((error) => res.status(404).json({ error }));
 };
 
-exports.deleteCommentPost = (req, res, next) => {
+// DELETE COMMENT
+exports.deleteComment = (req, res, next) => {
   PostModel.findByIdAndUpdate(
     { _id: req.params.id },
     {
@@ -46,13 +50,14 @@ exports.deleteCommentPost = (req, res, next) => {
       },
     }
   )
-    .then((post) => {
+    .then(() => {
       // Push l'userId dans l'Array usersLiked
       res.status(200).json({ message: "Comment deleted !" });
     })
     .catch((error) => res.status(401).json({ error }));
 };
 
+// LIKE COMMENT
 exports.likeComment = (req, res, next) => {
   const userId = req.body.userId; // UserID de l'utilisateur
   PostModel.findOne({ _id: req.params.id })
@@ -77,4 +82,22 @@ exports.likeComment = (req, res, next) => {
       }
     })
     .catch((error) => res.status(404).json({ error }));
+};
+
+// GET NAME USER BY ID
+exports.getNameByIdComment = (req, res, next) => {
+  PostModel.findOne({ _id: req.params.id })
+    .then((post) => {
+      const comment = post.comments.find((comment) =>
+        comment._id.equals(req.body.commentId)
+      );
+      const nameUserComment = comment.userId;
+      UserModel.findOne({ _id: nameUserComment })
+        .then((user) => {
+          const posterName = (user.firstname + " " + user.surname);
+          res.status(201).json({ posterName });
+        })
+        .catch((error) => res.status(401).json({ error }));
+    })
+    .catch((error) => res.status(500).json({ error }));
 };

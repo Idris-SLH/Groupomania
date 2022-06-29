@@ -13,17 +13,19 @@ const MIME_TYPES = {
 };
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    if (req.url == "/user") {
+    if (req.baseUrl == "/api/user") {
       return callback(null, "images/avatar");
     }
     callback(null, "images");
   },
   filename: (req, file, callback) => {
-    const name = file.originalname.split(" ").join("_"); // Suppression des espaces
-    const index = name.lastIndexOf(".");
-    const newName = name.slice(0, index); // Suppression de l'extension
+    const originalName = file.originalname.split(" ").join("_"); // Suppression des espaces
+    const index = originalName.lastIndexOf("."); // Récuperation de l'index de l'extension
+    const newName = originalName.slice(0, index); // Suppression de l'extension dans le nom
+    const maxLength = 20; // Caractère max des fichier
+    const name = newName.slice(0, maxLength);
     const extension = MIME_TYPES[file.mimetype]; // Récuperation de l'extension
-    callback(null, `${newName}_${Date.now()}.${extension}`); // Renommage du fichier avec le nouveau nom et la date
+    callback(null, `${name}_${Date.now()}.${extension}`); // Renommage du fichier avec le nouveau nom et la date
   },
 });
 
