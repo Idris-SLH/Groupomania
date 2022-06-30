@@ -1,5 +1,5 @@
 const PostModel = require("../models/post.model");
-const UserModel = require("../models/user.model");
+const { getNameById, getNameByIdLikes } = require("../middleware/project");
 
 // CREATE COMMENT
 exports.commentPost = (req, res, next) => {
@@ -21,7 +21,6 @@ exports.commentPost = (req, res, next) => {
     })
     .catch((error) => res.status(401).json({ error }));
 };
-
 
 // UPDATE COMMENT
 exports.updateComment = (req, res, next) => {
@@ -88,16 +87,28 @@ exports.likeComment = (req, res, next) => {
 exports.getNameByIdComment = (req, res, next) => {
   PostModel.findOne({ _id: req.params.id })
     .then((post) => {
+      if (!req.body.commentId) {
+        res.status(404).json({ error: "Invalid comment Id" });
+      }
       const comment = post.comments.find((comment) =>
         comment._id.equals(req.body.commentId)
       );
-      const nameUserComment = comment.userId;
-      UserModel.findOne({ _id: nameUserComment })
-        .then((user) => {
-          const posterName = (user.firstname + " " + user.surname);
-          res.status(201).json({ posterName });
-        })
-        .catch((error) => res.status(401).json({ error }));
+      getNameById(comment.userId, res);
+    })
+    .catch((error) => res.status(404).json({ error }));
+};
+
+exports.getNameByIdCommentLikes = (req, res, next) => {
+  PostModel.findOne({ _id: req.params.id })
+    .then((post) => {
+      if (!req.body.commentId) {
+        res.status(404).json({ error: "Invalid comment Id" });
+      }
+      const comment = post.comments.find((comment) =>
+        comment._id.equals(req.body.commentId)
+      );
+      const likesTable = comment.usersLiked;
+      getNameByIdLikes(likesTable, res);
     })
     .catch((error) => res.status(500).json({ error }));
 };

@@ -1,5 +1,5 @@
 const PostModel = require("../models/post.model");
-const UserModel = require("../models/user.model");
+const { getNameById, getNameByIdLikes } = require("../middleware/project");
 
 const fs = require("fs");
 
@@ -132,34 +132,17 @@ exports.likePost = (req, res, next) => {
 exports.getNameById = (req, res, next) => {
   PostModel.findOne({ _id: req.params.id })
     .then((post) => {
-      getNameById(post.userId, res)
+      getNameById(post.userId, res);
     })
     .catch((error) => res.status(500).json({ error }));
 };
-
 
 // GET USERNAME'S LIKES ARRAY
 exports.getNameByIdLikes = (req, res, next) => {
   PostModel.findOne({ _id: req.params.id })
     .then((post) => {
-      UserModel.find({ _id: post.usersLiked })
-        .then((users) => {
-          const likeName = [];
-          users.forEach(function (user) {
-            likeName.push(user.firstname + " " + user.surname);
-          });
-          res.status(201).json({ likeName });
-        })
-        .catch((error) => res.status(401).json({ error }));
+      const likesTable = post.usersLiked;
+      getNameByIdLikes(likesTable, res);
     })
     .catch((error) => res.status(500).json({ error }));
 };
-
-function getNameById(userId, res) {
-  UserModel.findOne({ _id: userId })
-    .then((user) => {
-      const userName = user.firstname + " " + user.surname;
-      res.status(201).json({ userName });
-    })
-    .catch((error) => res.status(401).json({ error }));
-}
