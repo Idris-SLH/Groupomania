@@ -11,10 +11,18 @@ exports.signUp = (req, res, next) => {
         ...req.body,
         password: hash,
       });
+
       user
         .save()
-        .then(() => res.status(201).json({ message: "User create !" }))
-        .catch((error) => res.status(400).json({ error }));
+        .then(() => res.status(201).json({ message: "User created !" }))
+        .catch((error) => {
+          if (error.errors.email.properties.type === "unique") {
+            return res
+              .status(200)
+              .json({ error: { email: "Email déjà pris !" } });
+          }
+          res.status(400).json({ error });
+        });
     })
     .catch((error) => res.status(500).json({ error }));
 };
@@ -22,14 +30,25 @@ exports.signUp = (req, res, next) => {
 exports.logIn = (req, res, next) => {
   UserModel.findOne({ email: req.body.email })
     .then((user) => {
-      if (!user) {
-        return res.status(401).json({ error: "User not found !" });
+      if (!req.body.email) {
+        return res.status(200).json({ error: { email: "Email requis !" } });
+      } else if (!user) {
+        return res
+          .status(200)
+          .json({ error: { email: "Utilisateur inexistant !" } });
+      }
+      if (!req.body.password) {
+        return res
+          .status(200)
+          .json({ error: { password: "Mot de passe requis" } });
       }
       bcrypt
         .compare(req.body.password, user.password) // Comparaison des hash de mot de passe
         .then((valid) => {
           if (!valid) {
-            return res.status(401).json({ error: "Incorrect password" });
+            return res.status(200).json({
+              error: { password: "Mot de passe incorrect" },
+            });
           }
           const token = jwt.sign(
             { userId: user._id },

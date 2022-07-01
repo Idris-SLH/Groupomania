@@ -4,24 +4,32 @@ const userRoutes = require("./routes/user.routes");
 const postRoutes = require("./routes/post.routes");
 const { checkUser, requireAuth } = require("./middleware/auth.middleware");
 const path = require("path");
-require("dotenv").config({ path: "./config/.env" });
+require("dotenv").config({ path: "./.env" });
 require("./app");
+const cors = require("cors");
 
 const app = express();
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-  next();
-});
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+  allowedHeaders: ["sessionId", "Content-Type"],
+  exposedHeaders: ["sessionId"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+};
+
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 app.use(express.json());
 
 // images
 app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/images/avatar", express.static(path.join(__dirname, "images/avatar")));
+app.use(
+  "/images/avatar",
+  express.static(path.join(__dirname, "images/avatar"))
+);
 
 // token
 app.get("*", checkUser);

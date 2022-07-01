@@ -3,7 +3,7 @@ const UserModel = require("../models/user.model");
 function getNameById(userId, res) {
   UserModel.findOne({ _id: userId })
     .then((user) => {
-      const userName = user.firstname + " " + user.surname;
+      const userName = user.firstname + " " + user.lastname;
       res.status(200).json({ userName });
     })
     .catch((error) => res.status(401).json({ error }));
@@ -14,7 +14,7 @@ function getNameByIdLikes(userTable, res) {
     .then((users) => {
       const likeName = [];
       users.forEach(function (user) {
-        likeName.push(user.firstname + " " + user.surname);
+        likeName.push(user.firstname + " " + user.lastname);
       });
       res.status(201).json({ likeName });
     })
