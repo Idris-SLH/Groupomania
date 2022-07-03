@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function SignUpForm() {
+  const [formSubmit, setFormSubmit] = useState(false);
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
@@ -64,7 +65,7 @@ function SignUpForm() {
 
   return (
     <form action="" onSubmit={handleRegister} id="sign-up-form">
-      <label htmlFor="firstname">Prénoom</label>
+      <label htmlFor="firstname">Prénom</label>
       <br />
       <input
         type="text"

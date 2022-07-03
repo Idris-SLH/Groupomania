@@ -1,20 +1,29 @@
 .conection-form {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 27%;
-  text-align: center;
+  height: 350px;
+  margin: auto;
   border: 1px solid black;
   border-radius: 5px;
   padding: 10px;
-  box-shadow: 0px 0px 20px grey;
+  box-shadow: 0px 0px 20px rgb(151, 151, 151);
+  display: flex;
 }
 
 .btn-container {
-  margin: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
+
+  li:hover {
+    cursor: pointer;
+  }
+}
+
+.form-container {
+  text-align: center;
+}
+
+.active-btn {
+  font-weight: bold;
 }
