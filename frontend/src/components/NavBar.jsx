@@ -12,14 +12,14 @@ function NavBar() {
     <nav>
       <div className="nav-container">
         <div className="logo">
-          <NavLink exact to="/">
-              <img src="./img/icon-left-font.png" alt="Logo groupomania" />
+          <NavLink exact="true" to="/">
+            <img src="./img/icon-left-font.png" alt="Logo groupomania" />
           </NavLink>
         </div>
         {uid ? (
           <ul>
             <li className="welcome">
-              <NavLink exact to="/profil">
+              <NavLink exact="true" to="/profil">
                 Bienvenue {userData.firstname} {userData.lastname}
               </NavLink>
             </li>
@@ -28,7 +28,7 @@ function NavBar() {
         ) : (
           <ul>
             <li>
-              <NavLink exact to="/profil">
+              <NavLink exact="true" to="/profil">
                 Login
               </NavLink>
             </li>

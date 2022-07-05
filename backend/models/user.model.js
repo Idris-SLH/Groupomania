@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
     age: { type: Date, trim: true },
     picture: {
       type: String,
-      default: "http://localhost:5000/images/default.png",
+      default: "http://localhost:5000/images/avatar/default.png",
     },
     role: { type: String, default: "USER" },
   },

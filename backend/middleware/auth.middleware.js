@@ -41,6 +41,7 @@ module.exports.requireAuth = (req, res, next) => {
 module.exports.auth = (req, res, next) => {
   // RECUPERATION PROFIL UTILISATEUR CONNECTÉE
   const token = req.cookies.token;
+  console.log(req)
   if (token) {
     jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
       if (err) {
