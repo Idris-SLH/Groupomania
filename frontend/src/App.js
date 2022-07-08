@@ -21,7 +21,7 @@ const App = () => {
     };
     fetchToken();
     if (uid) dispatch(getUser(uid));
-  }, [uid]);
+  }, [uid, dispatch]);
 
   return (
     <UidContext.Provider value={uid}>

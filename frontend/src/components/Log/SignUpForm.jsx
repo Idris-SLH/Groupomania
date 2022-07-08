@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function SignUpForm() {
-  const [formSubmit, setFormSubmit] = useState(false);
+  // const [formSubmit, setFormSubmit] = useState(false);
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
@@ -12,9 +12,9 @@ function SignUpForm() {
   const handleRegister = async (e) => {
     e.preventDefault();
     const terms = document.getElementById("terms");
-    const firstnameError = document.querySelector(".firstname.error");
-    const lastnameError = document.querySelector(".lastname.error");
-    const passwordError = document.querySelector(".password.error");
+    // const firstnameError = document.querySelector(".firstname.error");
+    // const lastnameError = document.querySelector(".lastname.error");
+    // const passwordError = document.querySelector(".password.error");
     const emailError = document.querySelector(".email.error");
     const passwordControlError = document.querySelector(
       ".password-control.error"

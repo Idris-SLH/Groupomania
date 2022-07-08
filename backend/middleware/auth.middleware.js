@@ -38,40 +38,27 @@ module.exports.requireAuth = (req, res, next) => {
   }
 };
 
-module.exports.auth = (req, res, next) => {
+module.exports.auth = async (req, res, next) => {
   // RECUPERATION PROFIL UTILISATEUR CONNECTÉE
-  const token = req.cookies.token;
-  console.log(req)
-  if (token) {
-    jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
-      if (err) {
-        return res.sendStatus(403);
+  console.log(req.body)
+
+  if (req.body.userId && req.body.posterId) {
+    const posterId = req.body.posterId;
+    let user = await UserModel.findById(req.body.userId);
+    const userId = user._id.toString();
+    const userRole = user.role;
+    // REQUETE D'ADMIN
+    if (userRole === "ADMIN") {
+      console.log("Bienvenue ADMIN");
+      next();
+    } else {
+      if (userId !== posterId) {
+        res.status(401).json({ error: "Unauthorized access !" });
       } else {
-        let user = await UserModel.findById(decodedToken.userId);
-        const userId = user._id.toString();
-        const userRole = user.role;
-        // REQUETE D'ADMIN
-        if (!req.body.userId) {
-          res.status(401).json({ error: "Please login" });
-        } else {
-          if (userRole === "ADMIN") {
-            console.log("Bienvenue ADMIN");
-            next();
-          } else {
-            if (req.body.userId !== userId) {
-              res.status(401).json({ error: "Unauthorized access !" });
-            } else {
-              next();
-            }
-          }
-        }
+        next();
       }
-      // REQUETE MODIFICATION COMMENTAIRE
-    });
+    }
   } else {
-    res.status(401).json({
-      error: "No token!",
-    });
+    res.status(401).json({ error: "Please login" });
   }
 };
-

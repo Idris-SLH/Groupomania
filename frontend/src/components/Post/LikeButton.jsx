@@ -8,10 +8,10 @@ function LikeButton({ post }) {
   const uid = useContext(UidContext);
   const dispatch = useDispatch();
 
-  const like = () => {
+  function like() {
     dispatch(likePost(post._id, uid));
     setLiked(!liked);
-  };
+  }
 
   useEffect(() => {
     if (post.usersLiked.includes(uid)) setLiked(true);
