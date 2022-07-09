@@ -1,5 +1,23 @@
+// GET NAME BY ID
+export function getNameById(userId, usersData) {
+  const user = usersData.find((object) => {
+    return object._id === userId;
+  });
+  return user.firstname + " " + user.lastname;
+}
+
+export function getInfoById(userId, usersData) {
+  const user = usersData.find((object) => {
+    return object._id === userId;
+  });
+  if (user.age && user.job) return `${getAge(user.age)} ans | ${user.job}`;
+  if (user.age) return `${getAge(user.age)} ans`;
+  if (user.job) return `${user.job}`;
+  else return null;
+}
+
 // GET LONG DATE-HOURS LOCAL
-export function dateParser(dateString) {
+export function dateParser(dateInfo) {
   let options = {
     hour: "2-digit",
     minute: "2-digit",
@@ -9,9 +27,11 @@ export function dateParser(dateString) {
     month: "short",
     day: "numeric",
   };
-  let timestamp = Date.parse(dateString);
+  if (isNaN(dateInfo)) {
+    dateInfo = Date.parse(dateInfo);
+  }
 
-  let date = new Date(timestamp).toLocaleDateString("fr-FR", options);
+  let date = new Date(dateInfo).toLocaleDateString("fr-FR", options);
   return date.toString();
 }
 

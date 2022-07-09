@@ -12,50 +12,104 @@
       justify-content: space-between;
       .card-header {
         display: flex;
+        img {
+          width: 70px;
+          height: 70px;
+          object-fit: cover;
+          border: 1px solid black;
+          border-radius: 50%;
+          margin: 15px 15px 0px 15px;
+          box-shadow: 0px 0px 20px rgb(151, 151, 151);
+        }
       }
-      img {
-        width: 70px;
-        height: 70px;
-        object-fit: cover;
-        border: 1px solid black;
-        border-radius: 50%;
-        margin: 15px 15px 0px 15px;
-        box-shadow: 0px 0px 20px rgb(151, 151, 151);
-      }
-      .button-container {
+      .update-container {
         align-self: flex-end;
         text-align: right;
         padding-right: 10px;
+        font-weight: bold;
         div:hover {
           font-weight: bold;
           cursor: pointer;
           color: darken($color: orange, $amount: 5);
         }
       }
-
-      .card-right {
-        display: flex;
-        flex-direction: column;
-        img {
-          height: 200px;
-          width: 70%;
-          margin-bottom: 10px;
-          object-fit: cover;
-          align-self: center;
-          border: 1px solid black;
-          border-radius: 20px;
-          box-shadow: 0px 0px 20px rgb(151, 151, 151);
-        }
+    }
+    .card-right {
+      display: flex;
+      flex-direction: column;
+      img {
+        height: 200px;
+        width: 70%;
+        margin-bottom: 10px;
+        object-fit: cover;
+        align-self: center;
+        border: 1px solid black;
+        border-radius: 20px;
+        box-shadow: 0px 0px 20px rgb(151, 151, 151);
       }
-
       .card-footer {
+        font-weight: bold;
+        .comment-icon {
+          &:hover {
+            cursor: pointer;
+            color: lighten($color: orange, $amount: 10);
+          }
+        }
         .heart-active {
           color: lighten($color: orange, $amount: 10);
         }
         p:hover {
-          font-weight: bold;
           cursor: pointer;
           color: darken($color: orange, $amount: 5);
+        }
+      }
+      .comments-container {
+        .comment-container {
+          display: flex;
+          margin: 10px;
+          padding: 8px;
+          border-radius: 10px;
+          border: 1px solid black;
+          box-shadow: 1px 1px 6px 0px rgb(151, 151, 151);
+          .left-part {
+            img {
+              width: 70px;
+              height: 70px;
+              object-fit: cover;
+              border: 1px solid black;
+              border-radius: 50%;
+              margin: 10px 12px 0px 4px;
+              box-shadow: 1px 1px 6px 0px rgb(151, 151, 151);
+            }
+          }
+          .right-part {
+            width: 100%;
+            .comment-header {
+              display: flex;
+              justify-content: space-between;
+              p {
+                opacity: 0;
+                font-style: oblique;
+
+                color: gray;
+              }
+              h4:hover {
+                cursor: pointer;
+                + p {
+                  opacity: 1;
+                }
+              }
+            }
+            .comment-content {
+              margin-top: -20px;
+            }
+            .comment-date {
+              color: gray;
+              font-style: oblique;
+              text-align: end;
+              margin: 0;
+            }
+          }
         }
       }
     }
