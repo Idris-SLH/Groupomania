@@ -35,7 +35,7 @@ export const updateJob = (info, id) => {
     return axios
       .put(`${process.env.REACT_APP_API_URL}api/user/${id}`, { ...info })
       .then(() => {
-        dispatch({ type: UPDATE_JOB, payload: info });
+        dispatch({ type: UPDATE_JOB, payload: { ...info } });
       })
       .catch((err) => console.log(err));
   };

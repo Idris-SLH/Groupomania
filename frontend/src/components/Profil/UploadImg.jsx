@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadPicture } from "../../actions/user.actions";
-import { updateAllUsers } from "../../actions/users.actions";
+import { getAllUsers } from "../../actions/users.actions";
 
 function UploadImg() {
   const [file, setFile] = useState();
@@ -13,10 +13,9 @@ function UploadImg() {
     const data = new FormData();
     data.append("userId", userData._id);
     data.append("picture", file);
-    dispatch(uploadPicture(data, userData._id));
-    setTimeout(() => {
-      dispatch(updateAllUsers(userData._id));
-    }, 500);
+    dispatch(uploadPicture(data, userData._id)).then(() =>
+      dispatch(getAllUsers())
+    );
   };
 
   return (

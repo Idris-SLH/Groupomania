@@ -14,12 +14,11 @@ function UpdateProfil() {
   const [updateForm, setUpdateForm] = useState(false);
   const dispatch = useDispatch();
 
-  const handleUpdate = () => {
+  function handleUpdate() {
     const info = { firstname, lastname, job, age };
     dispatch(updateJob(info, userData._id));
     setUpdateForm(false);
-    window.location.reload();
-  };
+  }
 
   return (
     <>

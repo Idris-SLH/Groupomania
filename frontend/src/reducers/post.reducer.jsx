@@ -3,6 +3,8 @@ import {
   GET_POSTS,
   LIKE_POST,
   UPDATE_POST,
+  UPDATE_COMMENT,
+  DELETE_COMMENT,
 } from "../actions/post.actions";
 
 const initialState = {};
@@ -39,19 +41,49 @@ export default function userReducer(state = initialState, action) {
               ...post,
               message: action.payload.message,
             };
-          } else {
-            return post;
-          }
-        }
-        return post;
+          } else return post;
+        } else return post;
       });
-      
+
     case DELETE_POST:
       if (action.payload.userId === action.payload.posterId) {
         return state.filter((post) => post._id !== action.payload.postId);
       }
       return state;
-      
+
+    case UPDATE_COMMENT:
+      return state.map((post) => {
+        if (post._id === action.payload.postId) {
+          return {
+            ...post,
+            comments: post.comments.map((comment) => {
+              if (comment._id === action.payload.commentId) {
+                if (comment.userId === action.payload.userId) {
+                  return {
+                    ...comment,
+                    message: action.payload.message,
+                  };
+                } else return comment;
+              } else return comment;
+            }),
+          };
+        } else return post;
+      });
+
+    case DELETE_COMMENT:
+      if (action.payload.userId === action.payload.posterId) {
+        return state.map((post) => {
+          if (post._id === action.payload.postId) {
+            return {
+              ...post,
+              comments: post.comments.filter(
+                (comment) => comment._id !== action.payload.commentId
+              ),
+            };
+          } else return post;
+        });
+      } else return state;
+
     default:
       return state;
   }

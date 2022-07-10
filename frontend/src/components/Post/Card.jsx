@@ -89,7 +89,10 @@ function Card({ post }) {
               <img src={post.picture} alt="card-pic" className="card-pic" />
             )}
             <div className="card-footer">
-              <div onClick={() => setShowComments(!showComments) } className="comment-icon">
+              <div
+                onClick={() => setShowComments(!showComments)}
+                className="comment-icon"
+              >
                 N°de commentaires
                 <span> {post.comments.length}</span>
               </div>
