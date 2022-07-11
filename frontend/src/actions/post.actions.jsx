@@ -1,9 +1,10 @@
 import axios from "axios";
 
+export const CREATE_POSTS = "CREATE_POSTS";
 export const GET_POSTS = "GET_POSTS";
-export const LIKE_POST = "LIKE_POST";
 export const UPDATE_POST = "UPDATE_POST";
 export const DELETE_POST = "DELETE_POST";
+export const LIKE_POST = "LIKE_POST";
 
 // coments
 export const CREATE_COMMENT = "CREATE_COMMENT";
@@ -22,12 +23,15 @@ export const getPosts = (num) => {
   };
 };
 
-export const likePost = (postId, userId) => {
+export const createPost = (data) => {
   return (dispatch) => {
     return axios
-      .patch(`${process.env.REACT_APP_API_URL}api/post/${postId}`, { userId })
+      .post(`${process.env.REACT_APP_API_URL}api/post/`, data)
       .then(() => {
-        dispatch({ type: LIKE_POST, payload: { postId, userId } });
+        dispatch({
+          type: CREATE_POSTS,
+          payload: data,
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -70,6 +74,16 @@ export const deletePost = (postId, posterId, userId) => {
   };
 };
 
+export const likePost = (postId, userId) => {
+  return (dispatch) => {
+    return axios
+      .patch(`${process.env.REACT_APP_API_URL}api/post/${postId}`, { userId })
+      .then(() => {
+        dispatch({ type: LIKE_POST, payload: { postId, userId } });
+      })
+      .catch((err) => console.log(err));
+  };
+};
 // comments
 
 export const createComment = (postId, userId, message) => {

@@ -7,22 +7,37 @@ import UpdateComment from "./UpdateComment";
 
 function CommentCard({ post }) {
   const [text, setText] = useState("");
+  const [count, setCount] = useState(1);
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
-  function handleComment(e) {
+  async function handleComment(e) {
     e.preventDefault();
     if (text) {
-      dispatch(createComment(post._id, userData._id, text))
-        .then(() => dispatch(getPosts()))
-        .then(() => setText(""));
+      dispatch(createComment(post._id, userData._id, text)).then(() =>
+        dispatch(getPosts())
+      );
+      await setCount(post.comments.length + 1);
+      setText("");
     }
   }
 
   return (
-    <div>
-      {post.comments.map((comment) => {
+    <div className="comments-container">
+      {count > 1 ? (
+        <p className="comment-info" onClick={() => setCount(1)}>
+          Cache les commentaires
+        </p>
+      ) : (
+        <p
+          className="comment-info"
+          onClick={() => setCount(post.comments.length)}
+        >
+          Afficher tout les commentaires (<span>{post.comments.length}</span>)
+        </p>
+      )}
+      {post.comments.slice(0, count).map((comment) => {
         return (
           <div className="comment-container" key={comment._id}>
             <div className="left-part">
@@ -51,20 +66,17 @@ function CommentCard({ post }) {
         );
       })}
       {userData._id && (
-        <div className="comment-input">
-          <form action="" onSubmit={handleComment} className="comment-form">
-            <input
+        <form action="" onSubmit={handleComment} className="comment-form">
+          <textarea
             className="input-form"
-              type="text"
-              name="text"
-              onChange={(e) => setText(e.target.value)}
-              value={text}
-              placeholder="Laisser un commentaire"
-            />
-            <br />
-            <input className="submit-btn" type="submit" value="Envoyer" />
-          </form>
-        </div>
+            type="text"
+            name="text"
+            onChange={(e) => setText(e.target.value)}
+            value={text}
+            placeholder="Laisser un commentaire"
+          />
+          <input className="submit-btn" type="submit" value="Envoyer" />
+        </form>
       )}
     </div>
   );

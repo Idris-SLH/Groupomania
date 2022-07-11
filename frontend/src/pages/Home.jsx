@@ -3,7 +3,7 @@ import TopNav from "../components/TopNav";
 import Log from "../components/Log";
 import Thread from "../components/Thread";
 import { UidContext } from "../components/AppContexte";
-
+import NewPostForm from "../components/Post/NewPostForm";
 function Home() {
   const uid = useContext(UidContext);
 
@@ -14,6 +14,9 @@ function Home() {
           <div className="home">
             <TopNav />
             <div className="main">
+              <div className="home-header">
+                <NewPostForm />
+              </div>
               <Thread />
             </div>
           </div>

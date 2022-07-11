@@ -18,3 +18,14 @@ ul {
     url(./assets/fonts/SFProDisplay-Regular.ttf) format("truetype");
 }
 
+body {
+  background-color: lighten($color: #ffd7d7, $amount: 3);
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  &:hover {
+    font-weight: bold;
+  }
+}

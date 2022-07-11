@@ -14,6 +14,24 @@ export default function userReducer(state = initialState, action) {
     case GET_POSTS:
       return action.payload;
 
+    case UPDATE_POST:
+      return state.map((post) => {
+        if (post._id === action.payload.postId) {
+          if (post.userId === action.payload.userId) {
+            return {
+              ...post,
+              message: action.payload.message,
+            };
+          } else return post;
+        } else return post;
+      });
+
+    case DELETE_POST:
+      if (action.payload.userId === action.payload.posterId) {
+        return state.filter((post) => post._id !== action.payload.postId);
+      }
+      return state;
+
     case LIKE_POST:
       return state.map((post) => {
         if (post._id === action.payload.postId) {
@@ -33,23 +51,6 @@ export default function userReducer(state = initialState, action) {
         }
         return post;
       });
-    case UPDATE_POST:
-      return state.map((post) => {
-        if (post._id === action.payload.postId) {
-          if (post.userId === action.payload.userId) {
-            return {
-              ...post,
-              message: action.payload.message,
-            };
-          } else return post;
-        } else return post;
-      });
-
-    case DELETE_POST:
-      if (action.payload.userId === action.payload.posterId) {
-        return state.filter((post) => post._id !== action.payload.postId);
-      }
-      return state;
 
     case UPDATE_COMMENT:
       return state.map((post) => {

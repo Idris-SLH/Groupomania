@@ -10,7 +10,6 @@ function Card({ post }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isUpdated, setIsUpdated] = useState(false);
   const [textUpdate, setTextUpdate] = useState(post.message);
-  const [showComments, setShowComments] = useState(false);
 
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
@@ -89,16 +88,9 @@ function Card({ post }) {
               <img src={post.picture} alt="card-pic" className="card-pic" />
             )}
             <div className="card-footer">
-              <div
-                onClick={() => setShowComments(!showComments)}
-                className="comment-icon"
-              >
-                N°de commentaires
-                <span> {post.comments.length}</span>
-              </div>
               <LikeButton post={post} />
+              <CommentCard post={post} />
             </div>
-            {showComments && <CommentCard post={post} />}
           </div>
         </>
       )}

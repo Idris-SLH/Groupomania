@@ -1,9 +1,97 @@
+.post-container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 10px auto;
+  .data {
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 10px;
+    box-shadow: 0px 0px 20px rgb(151, 151, 151);
+    .user-info {
+      display: flex;
+      margin-bottom: 5px;
+      p {
+        margin: auto 0px;
+        font-weight: bold;
+      }
+    }
+    .avatar {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border: 1px solid black;
+      border-radius: 50%;
+      margin: 10px 12px 0px 4px;
+      box-shadow: 1px 1px 6px 0px rgb(151, 151, 151);
+    }
+    .preview {
+      width: 300px;
+      height: 170px;
+      object-fit: cover;
+      border: 1px solid gray;
+      border-radius: 10%;
+      box-shadow: 1px 1px 3px 0px rgb(151, 151, 151);
+    }
+    .form-update {
+      display: flex;
+      flex-direction: column;
+      #file-upload {
+        display: none;
+      }
+      textarea {
+        border: 2px dashed orange;
+        max-width: 480px;
+        min-width: 480px;
+        width: 480px;
+        min-height: fit-content;
+      }
+      .upload-form {
+        margin: 10px;
+        font-weight: bold;
+        height: 20px;
+        &:hover {
+          cursor: pointer;
+          font-size: large;
+          color: orange;
+          transition: 0.27s;
+        }
+      }
+      .cancel {
+        margin: 05px 20px 10px 20px;
+        padding: 7px;
+        color: white;
+        background-color: lightcoral;
+        border-color: darken($color: lightcoral, $amount: 10);
+        &:hover {
+          cursor: pointer;
+          font-weight: bold;
+          background-color: darken($color: lightcoral, $amount: 10);
+        }
+      }
+      .submit-btn {
+        margin: 05px 20px 10px 20px;
+        padding: 7px;
+        color: white;
+        background-color: orange;
+        border-color: darken($color: orange, $amount: 10);
+        &:hover {
+          cursor: pointer;
+          font-weight: bold;
+          background-color: darken($color: orange, $amount: 10);
+        }
+      }
+    }
+  }
+}
+
 .thread-container {
-  width: 50%;
-  margin: auto;
   .card-container {
+    margin: 25px auto;
+    background-color: white;
+    width: 480px;
     padding: 5px;
-    margin: 10px;
     border-radius: 10px;
     border: 1px solid black;
     box-shadow: 0px 0px 20px rgb(151, 151, 151);
@@ -38,8 +126,8 @@
       display: flex;
       flex-direction: column;
       img {
-        height: 200px;
-        width: 70%;
+        height: 170px;
+        width: 60%;
         margin-bottom: 10px;
         object-fit: cover;
         align-self: center;
@@ -48,101 +136,127 @@
         box-shadow: 0px 0px 20px rgb(151, 151, 151);
       }
       .card-footer {
-        font-weight: bold;
-        .comment-icon {
-          &:hover {
-            cursor: pointer;
-            color: lighten($color: orange, $amount: 10);
-          }
-        }
         .heart-active {
           color: lighten($color: orange, $amount: 10);
         }
-        p:hover {
-          cursor: pointer;
-          color: darken($color: orange, $amount: 5);
-        }
-      }
-      .comment-container {
-        display: flex;
-        margin: 10px;
-        padding: 8px;
-        border-radius: 10px;
-        border: 1px solid black;
-        box-shadow: 1px 1px 6px 0px rgb(151, 151, 151);
-        .left-part {
-          img {
-            width: 70px;
-            height: 70px;
-            object-fit: cover;
-            border: 1px solid black;
-            border-radius: 50%;
-            margin: 10px 12px 0px 4px;
-            box-shadow: 1px 1px 6px 0px rgb(151, 151, 151);
+        .heart-active,
+        .heart {
+          &:hover {
+            cursor: pointer;
+            color: darken($color: orange, $amount: 5);
           }
         }
-        .right-part {
-          width: 100%;
-          .comment-header {
-            display: flex;
-            p {
-              opacity: 0;
-              font-style: oblique;
-              margin-top: 22px;
-              margin-left: 6px;
-              color: gray;
-            }
-            h4:hover {
+        .comments-container {
+          display: flex;
+          flex-direction: column;
+          .comment-info {
+            &:hover {
               cursor: pointer;
-              + p {
-                opacity: 1;
+              color: darken($color: orange, $amount: 5);
+            }
+          }
+          .comment-container {
+            display: flex;
+            align-items: center;
+            margin: 10px;
+            padding: 5px;
+            border-radius: 10px;
+            border: 1px solid black;
+            box-shadow: 1px 1px 6px 0px rgb(151, 151, 151);
+            .left-part {
+              img {
+                width: 70px;
+                height: 70px;
+                object-fit: cover;
+                border: 1px solid black;
+                border-radius: 50%;
+                margin-right: 10px;
+                box-shadow: 1px 1px 6px 0px rgb(151, 151, 151);
+              }
+            }
+            .right-part {
+              width: 100%;
+              .comment-header {
+                display: flex;
+                p {
+                  opacity: 0;
+                  font-style: oblique;
+                  margin-top: 22px;
+                  margin-left: 6px;
+                  color: gray;
+                }
+                h4:hover {
+                  cursor: pointer;
+                  + p {
+                    opacity: 1;
+                  }
+                }
+              }
+              .update-container {
+                display: flex;
+                justify-content: flex-end;
+                margin-bottom: 25px;
+                margin-top: -60px;
+                div {
+                  margin-left: 20px;
+                  font-weight: bold;
+                  color: gray;
+                  &:hover {
+                    cursor: pointer;
+                    color: darken($color: orange, $amount: 5);
+                  }
+                }
+              }
+              .comment-content {
+                margin-top: -20px;
+                display: flex;
+                justify-content: space-between;
+                .update-comment {
+                  margin-top: 20px;
+                  .textarea {
+                    border: 2px dashed orange;
+                    max-width: 480px;
+                    min-width: 480px;
+                    width: 480px;
+                    min-height: fit-content;
+                  }
+                }
+              }
+              .comment-date {
+                color: gray;
+                font-style: oblique;
+                text-align: end;
+                margin-top: -5px;
+                margin-bottom: 5px;
               }
             }
           }
-          .update-container {
+
+          .comment-form {
             display: flex;
-            justify-content: flex-end;
-            margin-bottom: 25px;
-            margin-top: -60px;
-            div {
-              margin-left: 20px;
-              font-weight: bold;
-              color: gray;
+            flex-direction: column;
+            justify-content: center;
+            textarea {
+              border: 2px dashed orange;
+              max-width: 450px;
+              min-width: 450px;
+              width: 450px;
+              margin: auto;
+              min-height: fit-content;
+            }
+            .submit-btn {
+              margin: 5px 20px 5px 20px;
+              padding: 7px;
+              color: white;
+              background-color: orange;
+              border-color: darken($color: orange, $amount: 10);
               &:hover {
                 cursor: pointer;
-                color: darken($color: orange, $amount: 5);
+                font-weight: bold;
+                background-color: darken($color: orange, $amount: 10);
               }
             }
           }
-          .comment-content {
-            margin-top: -20px;
-            display: flex;
-            justify-content: space-between;
-            .update-comment {
-              margin-top: 20px;
-              .textarea {
-                border: 2px dashed orange;
-                max-width: 480px;
-                min-width: 480px;
-                width: 480px;
-                min-height: fit-content;
-              }
-            }
-          }
-          .comment-date {
-            color: gray;
-            font-style: oblique;
-            text-align: end;
-            margin: 0;
-          }
-        }
-      }
-      .comment-input {
-        display: flex;
-        justify-content: center;
-        input {
-          height: 40px;
-          width: 100%;
         }
       }
     }
