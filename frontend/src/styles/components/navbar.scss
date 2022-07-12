@@ -3,11 +3,13 @@ nav {
   .nav-container {
     background-color: white;
     display: flex;
-    border: 1px solid black;
-    box-shadow: 0px 0px 20px rgb(151, 151, 151);
+    border: 1px solid lighten(#FD2D01, 35);
+    box-shadow: 0px 0px 20px lighten(#FD2D01, 35);
     height: 100px;
+    border-radius: 20px;
     img {
       height: 100%;
+      border-radius: 20px;
     }
     ul {
       display: flex;
@@ -22,5 +24,13 @@ nav {
         margin: 20px;
       }
     }
+  }
+}
+
+.icon-bis {
+  display: flex;
+  flex-direction: column;
+  a {
+    margin: 10px auto;
   }
 }

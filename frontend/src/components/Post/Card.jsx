@@ -58,7 +58,7 @@ function Card({ post }) {
                 </h3>
                 <span>{getInfoById(post.userId, usersData)}</span>
                 <br />
-                <span>{dateParser(post.createdAt)}</span>
+                <span className="poster-date">{dateParser(post.createdAt)}</span>
               </div>
             </div>
             {userData._id === post.userId && (

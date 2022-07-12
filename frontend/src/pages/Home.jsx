@@ -4,6 +4,8 @@ import Log from "../components/Log";
 import Thread from "../components/Thread";
 import { UidContext } from "../components/AppContexte";
 import NewPostForm from "../components/Post/NewPostForm";
+import Trends from "../components/Trends";
+
 function Home() {
   const uid = useContext(UidContext);
 
@@ -18,6 +20,9 @@ function Home() {
                 <NewPostForm />
               </div>
               <Thread />
+            </div>
+            <div className="right-side">
+                <Trends />
             </div>
           </div>
         </>

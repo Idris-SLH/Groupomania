@@ -29,3 +29,24 @@ a {
     font-weight: bold;
   }
 }
+
+.home {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: auto;
+  .left-nav-container {
+    width: 20%;
+  }
+  .main {
+    width: 50%;
+  }
+  .right-side {
+    width: 30%;
+  }
+}
+
+.error-img {
+  text-align: center;
+}
+

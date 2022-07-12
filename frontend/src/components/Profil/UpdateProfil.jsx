@@ -29,7 +29,7 @@ function UpdateProfil() {
   }
 
   return (
-    <>
+    <div className="home">
       <TopNav />
       <div className="profil-container">
         <h1>Profile de {userData.firstname}</h1>
@@ -106,7 +106,7 @@ function UpdateProfil() {
           <input className="submit-btn" type="submit" value="Enregister" />
         </form>
       </div>
-    </>
+    </div>
   );
 }
 

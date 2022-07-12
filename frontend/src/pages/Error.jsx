@@ -2,8 +2,10 @@ import React from "react";
 
 function Error() {
   return (
-    <div>
-      <h1>Page d'erreur 404</h1>
+    <div className="error-img">
+      <h2>Oups...</h2>
+      <img src='./img/404.png' alt="error-404" />
+      <h2>Il semblerait qu'il y ait un problème</h2>
     </div>
   );
 }
