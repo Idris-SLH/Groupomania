@@ -14,7 +14,7 @@ function Home() {
       {uid ? (
         <>
           <div className="home">
-            <TopNav />
+            <TopNav num={1} />
             <div className="main">
               <div className="home-header">
                 <NewPostForm />
@@ -22,14 +22,16 @@ function Home() {
               <Thread />
             </div>
             <div className="right-side">
-                <Trends />
+              <Trends />
             </div>
           </div>
         </>
       ) : (
         <div className="log-container">
+          <div className="img-container">
+            <img src="./img/log.svg" alt="connection" />
+          </div>
           <Log login={false} signup={true} />
-          <div className="img-container"></div>
         </div>
       )}
     </div>

@@ -1,36 +1,49 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { likePost } from "../../actions/post.actions";
-import { UidContext } from "../AppContexte";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { likeComment, likePost } from "../../actions/post.actions";
+import { getNameById } from "../Utils";
 
-function LikeButton({ post }) {
+function LikeButton({ object, postId, isComment = false }) {
   const [liked, setLiked] = useState(false);
-  const uid = useContext(UidContext);
+  const userData = useSelector((state) => state.userReducer);
+  const usersData = useSelector((state) => state.usersReducer);
   const dispatch = useDispatch();
 
   function like() {
-    dispatch(likePost(post._id, uid));
-    setLiked(!liked);
+    if (isComment) {
+      dispatch(likeComment(postId, userData._id, object._id));
+      setLiked(!liked);
+    } else {
+      dispatch(likePost(postId, userData._id));
+      setLiked(!liked);
+    }
   }
 
   useEffect(() => {
-    if (post.usersLiked.includes(uid)) setLiked(true);
+    if (object.usersLiked.includes(userData._id)) setLiked(true);
     else setLiked(false);
-  }, [uid, post.usersLiked, liked]);
+  }, [userData._id, object.usersLiked, liked]);
 
   return (
-    <div className="like-container">
-      {uid && liked === false && (
-        <p className="heart" onClick={like}>
-          {post.usersLiked.length} ❤ J'aime
-        </p>
-      )}
-      {uid && liked && (
-        <p className="heart-active" onClick={like}>
-          {post.usersLiked.length} ❤ Aimer
-        </p>
-      )}
-    </div>
+    <>
+      <div className="like-container">
+        {userData._id && liked === false && (
+          <p className="heart" onClick={like}>
+            {object.usersLiked.length} ❤ J'aime
+          </p>
+        )}
+        {userData._id && liked && (
+          <p className="heart-active" onClick={like}>
+            {object.usersLiked.length} ❤ Aimer
+          </p>
+        )}
+      </div>
+      <div className="like-name">
+        {object.usersLiked.map((user) => (
+          <p>{getNameById(user, usersData)}</p>
+        ))}
+      </div>
+    </>
   );
 }
 

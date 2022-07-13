@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
 import { getTrends } from "../actions/post.actions";
 import { dateParser, isEmpty } from "./Utils";
 
@@ -18,7 +17,6 @@ function Trends() {
         return b.usersLiked.length - a.usersLiked.length;
       });
       sortedArray.length = 2;
-      console.log(sortedArray);
       dispatch(getTrends(sortedArray));
     }
   }, [posts, dispatch]);
@@ -61,11 +59,13 @@ function Trends() {
                       <img src={post.picture} alt="post-pic" />
                     )}
                   </div>
-                  <div className="post-content">{post.message && <p>{post.message}</p>}</div>
+                  <div className="post-content">
+                    {post.message && <p>{post.message}</p>}
+                  </div>
                   <p className="post-infos">
                     <span className="post-info">
-                      <span>Com ({post.comments.length}) </span>-{" "}
-                      <span>Like ({post.usersLiked.length})</span>
+                      <span>📖 {post.comments.length} </span>
+                      <span> ❤ {post.usersLiked.length}</span>
                     </span>
                     <span className="post-date">
                       {dateParser(post.createdAt)}

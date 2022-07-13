@@ -119,9 +119,9 @@
           }
         }
         .poster-date {
-         font-style: oblique;
-         color: gray;
-       }
+          font-style: oblique;
+          color: gray;
+        }
 
         img {
           width: 70px;
@@ -147,6 +147,37 @@
     .card-right {
       display: flex;
       flex-direction: column;
+      .update-post {
+        text-align: center;
+        margin: 10px auto;
+        width: 100%;
+        textarea {
+          border: 2px dashed orange;
+          max-width: 90%;
+          min-width: 90%;
+          min-height: fit-content;
+          &:hover {
+            background-color: whitesmoke;
+          }
+          &:focus {
+            background-color: whitesmoke;
+            outline: none;
+            border-color: red;
+          }
+        }
+        .btn {
+          padding: 7px;
+          color: white;
+          background-color: orange;
+          border-color: darken($color: orange, $amount: 10);
+          &:hover {
+            cursor: pointer;
+            font-weight: bold;
+            border-color: darken($color: #fd2d01, $amount: 10);
+            background-color: lighten($color: #fd2d01, $amount: 10);
+          }
+        }
+      }
       img {
         height: 170px;
         width: 60%;
@@ -157,15 +188,28 @@
         box-shadow: 0px 0px 5px 0px lighten(#4e5166, 20);
       }
       .card-footer {
-        .heart-active {
-          color: lighten($color: orange, $amount: 10);
-        }
-        .heart-active,
-        .heart {
-          &:hover {
-            cursor: pointer;
-            color: darken($color: orange, $amount: 5);
+        .like-container {
+          .heart-active {
+            color: lighten($color: #fd2d01, $amount: 10);
           }
+          .heart-active,
+          .heart {
+            &:hover {
+              cursor: pointer;
+              color: darken($color: #fd2d01, $amount: 5);
+            }
+          }
+          &:hover {
+            + .like-name {
+              display: initial;
+              position: absolute;
+            }
+          }
+        }
+        .like-name {
+          background-color: #4e5166;
+          opacity: .9;
+          display: none;
         }
         .comments-container {
           display: flex;
@@ -173,7 +217,7 @@
           .comment-info {
             &:hover {
               cursor: pointer;
-              color: darken($color: orange, $amount: 5);
+              color: darken($color: #fd2d01, $amount: 5);
             }
           }
           .comment-container {
@@ -185,6 +229,8 @@
             border-radius: 10px;
             box-shadow: 0px 0px 5px 0px lighten(#4e5166, 30);
             .left-part {
+              width: 20%;
+
               img {
                 width: 70px;
                 height: 70px;
@@ -194,9 +240,8 @@
                 box-shadow: 0px 0px 5px 0px lighten(#4e5166, 20);
               }
             }
-            
             .right-part {
-              width: 100%;
+              width: 80%;
               .comment-header {
                 display: flex;
                 p {
@@ -233,13 +278,34 @@
                 display: flex;
                 justify-content: space-between;
                 .update-comment {
-                  margin-top: 20px;
-                  .textarea {
+                  text-align: center;
+                  margin: 20px auto;
+                  width: 100%;
+                  textarea {
                     border: 2px dashed orange;
-                    max-width: 480px;
-                    min-width: 480px;
-                    width: 480px;
-                    min-height: fit-content;
+                    max-width: 90%;
+                    min-width: 90%;
+                    margin: auto;
+                    &:hover {
+                      background-color: darken(whitesmoke, 2);
+                    }
+                    &:focus {
+                      background-color: darken(whitesmoke, 2);
+                      outline: none;
+                      border-color: red;
+                    }
+                  }
+                  .btn {
+                    padding: 7px;
+                    color: white;
+                    background-color: orange;
+                    border-color: darken($color: orange, $amount: 10);
+                    &:hover {
+                      cursor: pointer;
+                      font-weight: bold;
+                      border-color: darken($color: #fd2d01, $amount: 10);
+                      background-color: lighten($color: #fd2d01, $amount: 10);
+                    }
                   }
                 }
               }
@@ -259,11 +325,9 @@
             justify-content: center;
             textarea {
               border: 2px dashed orange;
-              max-width: 450px;
-              min-width: 450px;
-              width: 450px;
+              max-width: 90%;
+              min-width: 90%;
               margin: auto;
-              min-height: fit-content;
               &:hover {
                 background-color: whitesmoke;
               }
@@ -282,7 +346,8 @@
               &:hover {
                 cursor: pointer;
                 font-weight: bold;
-                background-color: darken($color: orange, $amount: 10);
+                border-color: darken($color: #fd2d01, $amount: 10);
+                background-color: lighten($color: #fd2d01, $amount: 10);
               }
             }
           }

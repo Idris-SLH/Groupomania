@@ -12,8 +12,10 @@ function Profil() {
           <UpdateProfil />
       ) : (
         <div className="log-container">
+          <div className="img-container">
+            <img src="./img/log.svg" alt="connection" />
+          </div>
           <Log login={false} signup={true} />
-          <div className="img-container"></div>
         </div>
       )}
     </div>

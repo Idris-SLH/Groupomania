@@ -24,7 +24,7 @@ body {
 
 a {
   text-decoration: none;
-  color: black;
+  color: darken(#fd2d01, 5);
   &:hover {
     font-weight: bold;
   }
@@ -50,3 +50,6 @@ a {
   text-align: center;
 }
 
+.active-btn {
+  font-weight: bold;
+}

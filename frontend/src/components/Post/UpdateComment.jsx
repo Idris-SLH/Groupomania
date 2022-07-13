@@ -20,7 +20,7 @@ function UpdateComment({ comment, post }) {
       )
     );
     setIsUpdated(false);
-    setTextUpdate(comment.message);
+    setTextUpdate(textUpdate);
   }
 
   function handleDelete() {
@@ -51,7 +51,6 @@ function UpdateComment({ comment, post }) {
         {isUpdated && (
           <div className="update-comment">
             <textarea
-              className="textarea"
               defaultValue={comment.message}
               onChange={(e) => setTextUpdate(e.target.value)}
             ></textarea>

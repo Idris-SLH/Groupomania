@@ -11,6 +11,8 @@ export const LIKE_POST = "LIKE_POST";
 export const CREATE_COMMENT = "CREATE_COMMENT";
 export const UPDATE_COMMENT = "UPDATE_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
+export const LIKE_COMMENT = "LIKE_COMMENT";
+
 
 // trends
 export const GET_TRENDS = "GET_TRENDS";
@@ -89,6 +91,8 @@ export const likePost = (postId, userId) => {
       .catch((err) => console.log(err));
   };
 };
+
+
 // comments
 
 export const createComment = (postId, userId, message) => {
@@ -151,6 +155,18 @@ export const deleteComment = (postId, commentId, posterId, userId) => {
   };
 };
 
+export const likeComment = (postId, userId, commentId) => {
+  return (dispatch) => {
+    return axios
+      .patch(`${process.env.REACT_APP_API_URL}api/post/like-comment/${postId}`, { userId , commentId})
+      .then(() => {
+        dispatch({ type: LIKE_COMMENT, payload: { postId, userId, commentId } });
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+// Trends
 export const getTrends = (sortedArray) => {
   return (dispatch) => {
     dispatch({ type: GET_TRENDS, payload: sortedArray });

@@ -30,7 +30,7 @@ function UpdateProfil() {
 
   return (
     <div className="home">
-      <TopNav />
+      <TopNav num={3} />
       <div className="profil-container">
         <h1>Profile de {userData.firstname}</h1>
         <form action="" onSubmit={handleUpdate} className="form-update">

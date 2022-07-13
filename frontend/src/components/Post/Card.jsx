@@ -88,7 +88,7 @@ function Card({ post }) {
               <img src={post.picture} alt="card-pic" className="card-pic" />
             )}
             <div className="card-footer">
-              <LikeButton post={post} />
+              <LikeButton object={post} postId={post._id}/>
               <CommentCard post={post} />
             </div>
           </div>

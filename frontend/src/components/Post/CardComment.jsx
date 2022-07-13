@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createComment, getPosts } from "../../actions/post.actions";
 import { isEmpty, getNameById, getInfoById, dateParser } from "../Utils";
+import LikeButton from "./LikeButton";
 import UpdateComment from "./UpdateComment";
 
 function CommentCard({ post }) {
@@ -60,6 +61,7 @@ function CommentCard({ post }) {
                 <p>{getInfoById(comment.userId, usersData)}</p>
               </div>
               <UpdateComment comment={comment} post={post} />
+              <LikeButton object={comment} postId={post._id} isComment={true}/>
               <p className="comment-date">{dateParser(comment.timestamp)}</p>
             </div>
           </div>
