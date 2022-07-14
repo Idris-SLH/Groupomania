@@ -8,20 +8,9 @@ function Profil() {
 
   return (
     <div className="profil-page">
-      {uid ? (
-          <UpdateProfil />
-      ) : (
-        <div className="log-container">
-          <div className="img-container">
-            <img src="./img/log.svg" alt="connection" />
-          </div>
-          <Log login={false} signup={true} />
-        </div>
-      )}
+      {uid ? <UpdateProfil /> : <Log login={true} signup={false} />}
     </div>
   );
 }
 
 export default Profil;
-
-

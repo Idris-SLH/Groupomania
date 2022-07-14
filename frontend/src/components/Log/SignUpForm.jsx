@@ -65,56 +65,52 @@ function SignUpForm() {
 
   return (
     <form action="" onSubmit={handleRegister} id="sign-up-form">
-      <label htmlFor="firstname">Prénom</label>
-      <br />
       <input
         type="text"
         name="firstname"
         id="firstname"
+        placeholder="Prénom"
         onChange={(e) => setFirstname(e.target.value)}
         value={firstname}
       />
       <div className="firstname error"></div>
       <br />
-      <label htmlFor="lastname">Nom</label>
-      <br />
       <input
         type="text"
         name="lastname"
         id="lastname"
+        placeholder="Nom"
         onChange={(e) => setLastname(e.target.value)}
         value={lastname}
       />
       <div className="lastname error"></div>
       <br />
-      <label htmlFor="email">Email</label>
-      <br />
       <input
         type="text"
         name="email"
         id="email"
+        placeholder="Email"
         onChange={(e) => setEmail(e.target.value)}
         value={email}
       />
       <div className="email error"></div>
       <br />
-      <label htmlFor="password">Mot de passe</label>
-      <br />
+
       <input
         type="password"
         name="password"
         id="password"
+        placeholder="Mot de passe"
         onChange={(e) => setPassword(e.target.value)}
         value={password}
       />
       <div className="password error"></div>
       <br />
-      <label htmlFor="password-conf">Confirmer le mot de passe</label>
-      <br />
       <input
         type="password"
         name="password"
         id="password-conf"
+        placeholder="Confirmez le mot de passe"
         onChange={(e) => setPasswordControl(e.target.value)}
         value={passwordControl}
       />
@@ -122,7 +118,7 @@ function SignUpForm() {
       <br />
       <input type="checkbox" id="terms" />
       <label htmlFor="terms">
-        J'accepte les{" "}
+        J'accepte les
         <a
           href="/"
           target="_blank"

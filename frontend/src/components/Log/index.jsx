@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LogInForm from "./LogInForm";
 import SignUpForm from "./SignUpForm";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Log = (props) => {
   const [signUpModal, setSignUpModal] = useState(props.signup);
@@ -17,27 +18,44 @@ const Log = (props) => {
   };
 
   return (
-    <div className="conection-form">
-      <div className="btn-container">
-        <ul>
-          <li
-            onClick={handleModals}
-            id="register"
-            className={signUpModal ? "active-btn" : null}
-          >
-            S'inscrire
-          </li>
-          <li
-            onClick={handleModals}
-            id="login"
-            className={logInModal ? "active-btn" : null}
-          >
-            Se connecter
-          </li>
-        </ul>
-        <div className="form-container">
-          {signUpModal && <SignUpForm />}
-          {logInModal && <LogInForm />}
+    <div className="log-container">
+      <div className="log-container__img">
+        <img src="./img/icon-left-font-monochrome-white.png" alt="connection" />
+      </div>
+      <div className="log-container__form">
+        <div>
+          <ul>
+            <li>
+              <FontAwesomeIcon
+                icon={logInModal ? "fas fa-circle" : "far fa-circle"}
+                id="login"
+                onClick={handleModals}
+              />
+            </li>
+            <li>
+              <FontAwesomeIcon
+                icon={signUpModal ? "fas fa-circle" : "far fa-circle"}
+                id="register"
+                onClick={handleModals}
+              />
+            </li>
+          </ul>
+        </div>
+        {signUpModal && <SignUpForm />}
+        {logInModal && <LogInForm />}
+        <div>
+          <ul>
+            {logInModal ? (
+              <li onClick={handleModals} id="register">
+                S'inscrire
+              </li>
+            ) : null}
+            {signUpModal ? (
+              <li onClick={handleModals} id="login">
+                Se connecter
+              </li>
+            ) : null}
+          </ul>
         </div>
       </div>
     </div>

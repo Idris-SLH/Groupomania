@@ -10,7 +10,7 @@ function Home() {
   const uid = useContext(UidContext);
 
   return (
-    <div>
+    <div className="body-container">
       {uid ? (
         <>
           <div className="home">
@@ -27,12 +27,7 @@ function Home() {
           </div>
         </>
       ) : (
-        <div className="log-container">
-          <div className="img-container">
-            <img src="./img/log.svg" alt="connection" />
-          </div>
-          <Log login={false} signup={true} />
-        </div>
+        <Log login={true} signup={false} />
       )}
     </div>
   );

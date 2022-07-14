@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import { getAllUsers } from "./actions/users.actions";
 import { getPosts } from "./actions/post.actions";
+import './fontawesome';
 
 // dev tools
 import { composeWithDevTools } from "redux-devtools-extension";
