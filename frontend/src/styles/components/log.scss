@@ -1,6 +1,3 @@
-body {
-  background-color: #fd2d01;
-}
 .log-container {
   width: 99%;
   position: absolute;
@@ -29,6 +26,34 @@ body {
         margin: auto 3px;
         font-weight: bold;
       }
+    }
+  }
+  label {
+    font-weight: bold;
+    color: #4e5166;
+  }
+  .error {
+    color: darken(#fd2d01, 5);
+    font-weight: bold;
+  }
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px lighten(#fd2d01, 40) inset !important;
+  }
+  input[type="text"],
+  input[type="password"],
+  input[type="date"] {
+    background-color: white;
+    &:hover {
+      background-color: darken(#fff,2);
+    }
+    &:focus {
+      border-color: #fff;
+      background-color: darken(#fff, 4);
+
+      outline: none;
     }
   }
 }

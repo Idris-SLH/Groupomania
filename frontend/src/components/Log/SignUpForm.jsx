@@ -64,7 +64,7 @@ function SignUpForm() {
   };
 
   return (
-    <form action="" onSubmit={handleRegister} id="sign-up-form">
+    <form action="" onSubmit={handleRegister} id="log-container__form--SignUp">
       <input
         type="text"
         name="firstname"
@@ -118,7 +118,7 @@ function SignUpForm() {
       <br />
       <input type="checkbox" id="terms" />
       <label htmlFor="terms">
-        J'accepte les
+        J'accepte les{" "}
         <a
           href="/"
           target="_blank"
@@ -130,7 +130,7 @@ function SignUpForm() {
         <div className="terms error"></div>
         <br />
       </label>
-      <input type="submit" value="S'inscrire" />
+      <input type="submit" className="submit-btn" value="S'inscrire" />
     </form>
   );
 }

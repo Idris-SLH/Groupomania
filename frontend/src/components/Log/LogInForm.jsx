@@ -41,7 +41,7 @@ function LogInForm() {
   };
 
   return (
-    <form action="" onSubmit={handleLogin} id="sign-up-form">
+    <form action="" onSubmit={handleLogin} id="log-container__form--LogIn">
       <input
         type="text"
         name="email"
@@ -62,7 +62,7 @@ function LogInForm() {
       />
       <div className="password error"></div>
       <br />
-      <input type="submit" value="Se connecter" />
+      <input type="submit" className="submit-btn" value="Se connecter" />
     </form>
   );
 }

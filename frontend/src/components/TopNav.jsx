@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import LogOut from "./Log/LogOut";
 
 function TopNav({ num }) {
   return (
@@ -26,6 +27,9 @@ function TopNav({ num }) {
             ) : (
               <div> PROFIL</div>
             )}
+          </NavLink>
+          <NavLink exact="true" to="/">
+            <LogOut />
           </NavLink>
         </div>
       </div>

@@ -5,31 +5,35 @@ import Thread from "../components/Thread";
 import { UidContext } from "../components/AppContexte";
 import NewPostForm from "../components/Post/NewPostForm";
 import Trends from "../components/Trends";
+import NavBar from "../components/NavBar";
 
 function Home() {
   const uid = useContext(UidContext);
 
   return (
-    <div className="body-container">
-      {uid ? (
-        <>
-          <div className="home">
-            <TopNav num={1} />
-            <div className="main">
-              <div className="home-header">
-                <NewPostForm />
+    <>
+      <div className="body-container">
+        {uid ? (
+          <>
+            <NavBar />
+            <div className="home">
+              <TopNav num={1} />
+              <div className="main">
+                <div className="home-header">
+                  <NewPostForm />
+                </div>
+                <Thread />
               </div>
-              <Thread />
+              <div className="right-side">
+                <Trends />
+              </div>
             </div>
-            <div className="right-side">
-              <Trends />
-            </div>
-          </div>
-        </>
-      ) : (
-        <Log login={true} signup={false} />
-      )}
-    </div>
+          </>
+        ) : (
+          <Log login={true} signup={false} />
+        )}
+      </div>
+    </>
   );
 }
 

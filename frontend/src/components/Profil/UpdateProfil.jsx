@@ -29,17 +29,16 @@ function UpdateProfil() {
   }
 
   return (
-    <div className="home">
+    <>
       <TopNav num={3} />
-      <div className="profil-container">
-        <h1>Profile de {userData.firstname}</h1>
-        <form action="" onSubmit={handleUpdate} className="form-update">
-          <div className="update-container">
-            <div className="left-part">
-              <h3>Photo de profil</h3>
+      <div className="profil_page__container">
+        <form action="" onSubmit={handleUpdate}>
+          <div className="profil_page__container__form">
+            <div className="profil_page__container__form--left-part">
               <img src={userData.picture} alt="avatar utilisateur" />
+              <br />
               <label htmlFor="file" className="upload-btn">
-                Changer d'image
+                Modifier photo de profil
               </label>
               <input
                 type="file"
@@ -51,62 +50,68 @@ function UpdateProfil() {
               <br />
             </div>
 
-            <div className="right-part">
-              <div className="bio-update">
-                <h3>Bio</h3>
-                {updateForm ? (
-                  <>
-                    <input
-                      type="text"
-                      defaultValue={userData.firstname}
-                      onChange={(e) => setFirstname(e.target.value)}
-                    />
-                    <br />
-                    <input
-                      type="text"
-                      defaultValue={userData.lastname}
-                      onChange={(e) => setLastname(e.target.value)}
-                    />
-                    <br />
-                    <input
-                      type="text"
-                      defaultValue={userData.job}
-                      onChange={(e) => setJob(e.target.value)}
-                    />
-                    <br />
-                    <input
-                      type="date"
-                      defaultValue={getDateUTC(userData.age)}
-                      onChange={(e) => setAge(e.target.value)}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <p onClick={() => setUpdateForm(!updateForm)}>
-                      {userData.firstname}
-                    </p>
-                    <p onClick={() => setUpdateForm(!updateForm)}>
-                      {userData.lastname}
-                    </p>
-                    <p onClick={() => setUpdateForm(!updateForm)}>
-                      {userData.job}
-                    </p>
-                    <p onClick={() => setUpdateForm(!updateForm)}>
-                      {getDate(userData.age)}
-                    </p>
-                    <p onClick={() => setUpdateForm(!updateForm)}>
-                      {getAge(userData.age)} ans
-                    </p>
-                  </>
-                )}
-              </div>
+            <div className="profil_page__container__form--right-part">
+              <label htmlFor="fisrtname">Prénom</label>
+              <br />
+              <input
+                type="text"
+                id="fisrtname"
+                defaultValue={userData.firstname}
+                onChange={(e) => setFirstname(e.target.value)}
+              />
+              <br />
+              <label htmlFor="lastname">Nom</label>
+              <br />
+              <input
+                type="text"
+                id="lastname"
+                defaultValue={userData.lastname}
+                onChange={(e) => setLastname(e.target.value)}
+              />
+              <br />
+              <label htmlFor="job">Job</label>
+              <br />
+              <input
+                type="text"
+                id="job"
+                defaultValue={userData.job}
+                onChange={(e) => setJob(e.target.value)}
+              />
+              <br />
+              <label htmlFor="age">Date de naissance</label>
+              <br />
+              <input
+                type="date"
+                id="age"
+                defaultValue={getDateUTC(userData.age)}
+                onChange={(e) => setAge(e.target.value)}
+              />
+              <br />
+              <label htmlFor="email">Mail</label>
+              <br />
+              <input
+                type="text"
+                disabled="true"
+                id="email"
+                defaultValue={userData.email}
+              />
+              <br />
+              <label htmlFor="password">Mot de passe</label>
+              <br />
+              <input
+                type="text"
+                disabled="true"
+                id="password"
+                defaultValue="********"
+              />
+              <br />
               <h4>Membre depuis le : {dateParser(userData.createdAt)}</h4>
             </div>
           </div>
-          <input className="submit-btn" type="submit" value="Enregister" />
+          <input type="submit" className="submit-btn" value="Enregister" />
         </form>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -5,7 +5,8 @@
   margin: auto;
   width: 50%;
 }
-ul {
+ul,
+li {
   list-style-type: none;
   padding: 0px;
 }
@@ -18,26 +19,22 @@ ul {
     url(./assets/fonts/SFProDisplay-Regular.ttf) format("truetype");
 }
 
-body {
-  background-color: lighten($color: #ffd7d7, $amount: 3);
-}
-
 a {
   text-decoration: none;
-  color: darken(#fd2d01, 5);
+  color: darken(#fd2d01, 10);
   &:hover {
     font-weight: bold;
   }
 }
-
+.left-nav-container {
+  width: 20%;
+}
 .home {
   display: flex;
   justify-content: space-between;
   width: 90%;
   margin: auto;
-  .left-nav-container {
-    width: 20%;
-  }
+
   .main {
     width: 50%;
   }
@@ -54,6 +51,46 @@ a {
   font-weight: bold;
 }
 
-.body-container {
-
+body {
+  background-color: lighten(#fd2d01, 30);
 }
+
+input[type="text"],
+input[type="password"],
+input[type="date"] {
+  background-color: lighten(#4e5166, 61);
+  border-radius: 15px;
+  border-style: none;
+  font-size: medium;
+  width: 100%;
+  padding-left: 12px;
+  margin-bottom: 17px;
+  height: 35px;
+  color: lighten(#4e5166, 15);
+  font-weight: bold;
+  &:hover {
+    background-color: lighten(#4e5166, 59);
+  }
+  &:focus {
+    border-color: #4e5166;
+    background-color: lighten(#4e5166, 57);
+    outline: none;
+  }
+}
+
+.submit-btn {
+  padding: 10px 60px;
+  border-radius: 15px;
+  color: white;
+  font-size: medium;
+  background-color: lighten($color: #fd2d01, $amount: 10);
+  border-color: darken($color: #fd2d01, $amount: 10);
+  &:hover {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: darken($color: #fd2d01, $amount: 5);
+    transition: 0.15s;
+  }
+}
+
+

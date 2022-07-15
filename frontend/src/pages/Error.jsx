@@ -1,10 +1,12 @@
 import React from "react";
+import NavBar from "../components/NavBar";
 
 function Error() {
   return (
     <div className="error-img">
+      <NavBar />
       <h2>Oups...</h2>
-      <img src='./img/404.png' alt="error-404" />
+      <img src="./img/404.png" alt="error-404" />
       <h2>Il semblerait qu'il y ait un problème</h2>
     </div>
   );

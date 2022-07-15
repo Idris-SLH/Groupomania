@@ -1,65 +1,59 @@
-.profil-container {
-  background-color: white;
-  width: 50%;
-  margin: 50px auto;
+.profil_page {
+  display: flex;
+  margin: auto;
   text-align: center;
-  box-shadow: 0px 0px 5px 0px lighten(#fd2d01, 20);
-  border-radius: 20px;
-
-  img {
-    height: 200px;
-    width: 200px;
-    object-fit: cover;
-    border-radius: 30px;
-    box-shadow: 0px 0px 5px 0px lighten(#4E5166, 20);
-    margin: 10px;
-
-  }
-  .update-container {
-    display: flex;
-    padding: 10px;
-    .left-part {
-      width: 50%;
+  width: 90%;
+  &__container {
+    background-color: white;
+    width: 80%;
+    padding: 30px;
+    box-shadow: 0px 0px 5px 0px lighten(#000000, 20);
+    border-radius: 20px;
+    &__form {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      .upload-btn {
-        margin: 05px 20px 10px 20px;
-        padding: 8px 20px;
-        color: white;
-        font-size: small;
-        border-radius: 10px;
-        border: #fd2d01 solid 2px;
-        background-color: darken($color: #ffd7d7, $amount: 20);
-        border-color: darken($color: #ffd7d7, $amount: 30);
-        transition: 0.15s ease-in-out;
-        &:hover {
-          cursor: pointer;
-          font-weight: bold;
-          border: darken($color: #fd2d01, $amount: 10) solid 2px;
-          background-color: darken($color: #ffd7d7, $amount: 35);
+      margin: 30px;
+      &--left-part {
+        width: 50%;
+        margin: auto;
+        img {
+          height: 250px;
+          width: 250px;
+          margin: 20px;
+          object-fit: cover;
+          border-radius: 50%;
+          box-shadow: 0px 0px 5px 0px lighten(#4e5166, 20);
+        }
+        .upload-btn {
+          padding: 8px 20px;
+          color: white;
+          font-size: small;
+          border-radius: 10px;
+          border: #fd2d01 solid 2px;
+          background-color: darken($color: #ffd7d7, $amount: 20);
+          border-color: darken($color: #ffd7d7, $amount: 30);
+          transition: 0.15s ease-in-out;
+          &:hover {
+            cursor: pointer;
+            font-weight: bold;
+            border: darken($color: #fd2d01, $amount: 10) solid 2px;
+            background-color: darken($color: #ffd7d7, $amount: 35);
+          }
+        }
+        #file {
+          display: none;
         }
       }
-      #file {
-        display: none;
+      &--right-part {
+        padding: 10px;
+        width: 50%;
+        text-align: left;
+        label {
+          padding-left: 10px;
+          text-transform: uppercase;
+          font-weight: bold;
+          color: #4e5166;
+        }
       }
-    }
-    .right-part {
-      width: 50%;
-    }
-  }
-  .submit-btn {
-    margin: 05px 20px 10px 20px;
-    padding: 10px 30px;
-    border-radius: 5px;
-    color: white;
-    background-color: lighten($color: #fd2d01, $amount: 10);
-    border-color: darken($color: #fd2d01, $amount: 10);
-    &:hover {
-      cursor: pointer;
-      font-weight: bold;
-      background-color: darken($color: #fd2d01, $amount: 5);
-      transition: 0.15s;
     }
   }
 }

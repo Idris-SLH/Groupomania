@@ -12,7 +12,7 @@ exports.getAllUsers = (req, res, next) => {
 // GET ON USER
 exports.getOneUser = (req, res, next) => {
   UserModel.findOne({ _id: req.params.id })
-    .select("-password -role -updatedAt -__v -email")
+    .select("-password -role -updatedAt -__v")
     .then((users) => res.status(200).json(users))
     .catch((error) => res.status(400).json({ error }));
 };
