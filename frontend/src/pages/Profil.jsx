@@ -9,12 +9,10 @@ function Profil() {
   return (
     <>
       {uid ? (
-        <>
+        <div className="body-container">
           <NavBar />
-          <div className="profil_page">
-            <UpdateProfil />
-          </div>
-        </>
+          <UpdateProfil />
+        </div>
       ) : (
         <Log login={true} signup={false} />
       )}

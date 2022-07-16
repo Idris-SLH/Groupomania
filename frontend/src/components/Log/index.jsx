@@ -18,44 +18,49 @@ const Log = (props) => {
   };
 
   return (
-    <div className="log-container">
-      <div className="log-container__img">
-        <img src="./img/icon-left-font-monochrome-white.png" alt="connection" />
-      </div>
-      <div className="log-container__form">
-        <div>
-          <ul>
-            <li>
-              <FontAwesomeIcon
-                icon={logInModal ? "fas fa-circle" : "far fa-circle"}
-                id="login"
-                onClick={handleModals}
-              />
-            </li>
-            <li>
-              <FontAwesomeIcon
-                icon={signUpModal ? "fas fa-circle" : "far fa-circle"}
-                id="register"
-                onClick={handleModals}
-              />
-            </li>
-          </ul>
+    <div className="body-log">
+      <div className="log-container">
+        <div className="log-container__img">
+          <img
+            src="./img/icon-left-font-monochrome-white.png"
+            alt="connection"
+          />
         </div>
-        {signUpModal && <SignUpForm />}
-        {logInModal && <LogInForm />}
-        <div>
-          <ul>
-            {logInModal ? (
-              <li onClick={handleModals} id="register">
-                S'inscrire
+        <div className="log-container__form">
+          <div>
+            <ul>
+              <li>
+                <FontAwesomeIcon
+                  icon={logInModal ? "fas fa-circle" : "far fa-circle"}
+                  id="login"
+                  onClick={handleModals}
+                />
               </li>
-            ) : null}
-            {signUpModal ? (
-              <li onClick={handleModals} id="login">
-                Se connecter
+              <li>
+                <FontAwesomeIcon
+                  icon={signUpModal ? "fas fa-circle" : "far fa-circle"}
+                  id="register"
+                  onClick={handleModals}
+                />
               </li>
-            ) : null}
-          </ul>
+            </ul>
+          </div>
+          {signUpModal && <SignUpForm />}
+          {logInModal && <LogInForm />}
+          <div>
+            <ul>
+              {logInModal ? (
+                <li onClick={handleModals} id="register">
+                  S'inscrire
+                </li>
+              ) : null}
+              {signUpModal ? (
+                <li onClick={handleModals} id="login">
+                  Se connecter
+                </li>
+              ) : null}
+            </ul>
+          </div>
         </div>
       </div>
     </div>

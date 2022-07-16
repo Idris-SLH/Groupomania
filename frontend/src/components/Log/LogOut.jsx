@@ -20,7 +20,7 @@ function LogOut() {
     window.location = "/";
   }
 
-  return <li onClick={logout}><a href="/#">Déconnexion</a></li>;
+  return <li onClick={logout}>Déconnexion</li>;
 }
 
 export default LogOut;

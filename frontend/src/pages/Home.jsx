@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import TopNav from "../components/TopNav";
+import InfoBox from "../components/InfoBox";
 import Log from "../components/Log";
 import Thread from "../components/Thread";
 import { UidContext } from "../components/AppContexte";
@@ -11,29 +11,23 @@ function Home() {
   const uid = useContext(UidContext);
 
   return (
-    <>
-      <div className="body-container">
-        {uid ? (
-          <>
-            <NavBar />
-            <div className="home">
-              <TopNav num={1} />
-              <div className="main">
-                <div className="home-header">
-                  <NewPostForm />
-                </div>
-                <Thread />
-              </div>
-              <div className="right-side">
-                <Trends />
-              </div>
-            </div>
-          </>
-        ) : (
-          <Log login={true} signup={false} />
-        )}
-      </div>
-    </>
+    <div className="body-container">
+      {uid ? (
+        <>
+          <NavBar />
+          <InfoBox />
+          <div className="main">
+            <NewPostForm />
+            <Thread />
+          </div>
+          <div className="right-side">
+            <Trends />
+          </div>
+        </>
+      ) : (
+        <Log login={true} signup={false} />
+      )}
+    </div>
   );
 }
 

@@ -1,13 +1,13 @@
 .profil_page {
   display: flex;
-  margin: auto;
-  text-align: center;
-  width: 90%;
+  width: 100%;
   &__container {
+    text-align: center;
     background-color: white;
-    width: 80%;
+    width: 75%;
     padding: 30px;
-    box-shadow: 0px 0px 5px 0px lighten(#000000, 20);
+    margin: auto 30px;
+    box-shadow: 0px 0px 8px 0px lighten(#4e5166, 50);
     border-radius: 20px;
     &__form {
       display: flex;

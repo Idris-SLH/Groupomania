@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 
 function Error() {
   return (
-    <div className="error-img">
+    <div className="error-page">
       <NavBar />
       <h2>Oups...</h2>
       <img src="./img/404.png" alt="error-404" />

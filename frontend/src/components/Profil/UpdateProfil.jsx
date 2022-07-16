@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import TopNav from "../TopNav";
+import InfoBox from "../InfoBox";
 import { useDispatch, useSelector } from "react-redux";
 import { updateJob, uploadPicture } from "../../actions/user.actions";
-import { dateParser, getAge, getDate, getDateUTC } from "../Utils";
 import { getAllUsers } from "../../actions/users.actions";
+import { getDateUTC } from "../Utils";
 
 function UpdateProfil() {
   const userData = useSelector((state) => state.userReducer);
@@ -29,8 +29,8 @@ function UpdateProfil() {
   }
 
   return (
-    <>
-      <TopNav num={3} />
+    <div className="profil_page">
+      <InfoBox />
       <div className="profil_page__container">
         <form action="" onSubmit={handleUpdate}>
           <div className="profil_page__container__form">
@@ -91,7 +91,7 @@ function UpdateProfil() {
               <br />
               <input
                 type="text"
-                disabled="true"
+                disabled={true}
                 id="email"
                 defaultValue={userData.email}
               />
@@ -100,18 +100,16 @@ function UpdateProfil() {
               <br />
               <input
                 type="text"
-                disabled="true"
+                disabled={true}
                 id="password"
                 defaultValue="********"
               />
-              <br />
-              <h4>Membre depuis le : {dateParser(userData.createdAt)}</h4>
             </div>
           </div>
           <input type="submit" className="submit-btn" value="Enregister" />
         </form>
       </div>
-    </>
+    </div>
   );
 }
 

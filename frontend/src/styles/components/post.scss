@@ -11,18 +11,18 @@
     .user-info {
       display: flex;
       margin-bottom: 5px;
+      .avatar {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin: 10px 12px 0px 4px;
+        box-shadow: 0px 0px 5px 0px lighten(#4e5166, 20);
+      }
       p {
         margin: auto 0px;
         font-weight: bold;
       }
-    }
-    .avatar {
-      width: 70px;
-      height: 70px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin: 10px 12px 0px 4px;
-      box-shadow: 0px 0px 5px 0px lighten(#4e5166, 20);
     }
     .preview {
       width: 300px;

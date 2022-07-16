@@ -26,7 +26,7 @@ function LikeButton({ object, postId, isComment = false }) {
 
   return (
     <>
-      <div className="like-container">
+      <div className="like-container" >
         {userData._id && liked === false && (
           <p className="heart" onClick={like}>
             {object.usersLiked.length} ❤ J'aime
@@ -39,9 +39,11 @@ function LikeButton({ object, postId, isComment = false }) {
         )}
       </div>
       <div className="like-name">
-        {object.usersLiked.map((user) => (
-          <p>{getNameById(user, usersData)}</p>
-        ))}
+        <ul>
+          {object.usersLiked.map((user) => (
+            <li key={user}>{getNameById(user, usersData)}</li>
+          ))}
+        </ul>
       </div>
     </>
   );

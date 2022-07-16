@@ -1,59 +1,66 @@
-.log-container {
-  width: 99%;
+.body-log {
+  background-color: lighten(#fd2d01, 30);
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  &__img {
-    width: 40%;
-    img {
-      width: 100%;
-      height: 450px;
-      object-fit: cover;
-    }
-  }
-  &__form {
-    width: 40%;
-    text-align: center;
-    ul {
-      color: white;
-      display: flex;
-      justify-content: center;
-      li {
-        cursor: pointer;
-        margin: auto 3px;
-        font-weight: bold;
+  justify-content: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  .log-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    max-width: 1920px;
+    width: 100%;
+    &__img {
+      width: 40%;
+      img {
+        width: 100%;
+        object-fit: cover;
       }
     }
-  }
-  label {
-    font-weight: bold;
-    color: #4e5166;
-  }
-  .error {
-    color: darken(#fd2d01, 5);
-    font-weight: bold;
-  }
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px lighten(#fd2d01, 40) inset !important;
-  }
-  input[type="text"],
-  input[type="password"],
-  input[type="date"] {
-    background-color: white;
-    &:hover {
-      background-color: darken(#fff,2);
+    &__form {
+      width: 40%;
+      text-align: center;
+      ul {
+        color: white;
+        display: flex;
+        justify-content: center;
+        li {
+          cursor: pointer;
+          margin: auto 3px;
+          font-weight: bold;
+        }
+      }
     }
-    &:focus {
-      border-color: #fff;
-      background-color: darken(#fff, 4);
+    label {
+      font-weight: bold;
+      color: #4e5166;
+    }
+    .error {
+      color: darken(#fd2d01, 5);
+      font-weight: bold;
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px lighten(#fd2d01, 40) inset !important;
+    }
+    input[type="text"],
+    input[type="password"],
+    input[type="date"] {
+      background-color: white;
+      &:hover {
+        background-color: darken(#fff, 2);
+      }
+      &:focus {
+        border-color: #fff;
+        background-color: darken(#fff, 4);
 
-      outline: none;
+        outline: none;
+      }
     }
   }
 }
