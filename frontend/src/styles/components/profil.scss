@@ -44,9 +44,13 @@
         }
       }
       &--right-part {
-        padding: 10px;
         width: 50%;
         text-align: left;
+        input[type="text"],
+        input[type="password"],
+        input[type="date"] {
+          margin-bottom: 15px;
+        }
         label {
           padding-left: 10px;
           text-transform: uppercase;

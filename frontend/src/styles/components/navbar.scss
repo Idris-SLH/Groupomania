@@ -1,8 +1,9 @@
 nav {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  z-index: 2;
   background-color: white;
   box-shadow: 0px 0px 8px 0px lighten(#4e5166, 50);
   .nav-container {
@@ -11,51 +12,62 @@ nav {
     justify-content: space-between;
     height: 55px;
     max-width: 1800px;
-    &__logo {
+    &-logo {
       img {
         margin-left: 20px;
         height: 100%;
       }
     }
-    &__menu {
-      margin-right: 20px;
-      &--trigger {
+    &-info {
+      display: flex;
+      margin: 5px 20px;
+      &__searchbar {
         display: flex;
-        font-weight: bold;
-        cursor: pointer;
-        .avatar {
-          width: 40px;
-          height: 40px;
-          object-fit: cover;
-          border-radius: 50%;
-          margin: auto;
-          box-shadow: 0px 0px 8px 0px lighten(#4e5166, 50);
+        align-items: center;
+        input {
+          width: 150px;
+          height: 30px;
         }
-      }
-      &--dropdown {
-        background: #ffffff;
-        border-radius: 8px;
-        padding: 7px;
-        box-shadow: 0px 0px 8px 0px lighten(#4e5166, 50);
-        opacity: 0;
-        transform: translateY(-10px);
-        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
-        li {
-          text-decoration: none;
-          color: #4e5166;
-          padding: 15px 20px;
-          display: block;
+        svg {
+          margin: auto 5px;
+          padding: 10px;
           cursor: pointer;
+          color: #fd2d01;
+          &:last-child {
+            color: #4e5166;
+          }
           &:hover {
-            background-color: aliceblue;
-            border-radius: 10px;
-            font-weight: bold;
+            opacity: 0.85;
+            background-color: lighten(#4e5166, 60);
+            border-radius: 50%;
           }
         }
-        &.active {
-          opacity: 1;
-          visibility: visible;
-          transform: translateY(0);
+      }
+      &__menu {
+        &--trigger {
+          display: flex;
+          font-weight: bold;
+          cursor: pointer;
+          .avatar {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: auto 10px;
+            box-shadow: 0px 0px 8px 0px lighten(#4e5166, 50);
+          }
+        }
+        &--dropdown {
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(-10px);
+          transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+
+          &.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+          }
         }
       }
     }

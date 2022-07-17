@@ -1,6 +1,7 @@
 // TOP  NAV
 * {
   font-family: "SFProDisplay", sans-serif;
+  font-size: 15px;
 }
 @font-face {
   font-family: "SFProDisplay";
@@ -26,7 +27,8 @@ li {
 }
 
 body {
-  background-color: lighten(#4e5166, 60);
+  background-color: lighten(#4e5166, 60);  
+
   #root {
     display: flex;
     justify-content: center;
@@ -36,6 +38,7 @@ body {
       width: 100%;
       max-width: 1920px;
       margin: 70px 20px;
+      position: relative;
       .main {
         width: 45%;
       }
@@ -55,7 +58,6 @@ input[type="date"] {
   font-size: medium;
   width: 100%;
   padding-left: 12px;
-  margin-bottom: 17px;
   height: 35px;
   color: lighten(#4e5166, 15);
   font-weight: bold;
@@ -74,6 +76,7 @@ input[type="date"] {
   border-radius: 15px;
   color: white;
   font-size: medium;
+  margin-bottom: 17px;
   background-color: lighten($color: #fd2d01, $amount: 10);
   border-color: darken($color: #fd2d01, $amount: 10);
   &:hover {
@@ -81,5 +84,30 @@ input[type="date"] {
     font-weight: bold;
     background-color: darken($color: #fd2d01, $amount: 5);
     transition: 0.15s;
+  }
+}
+
+.bubble {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 7px;
+  box-shadow: 0px 0px 8px 0px lighten(#4e5166, 50);
+  li {
+    text-decoration: none;
+    color: #4e5166;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+      background-color: aliceblue;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+    &:active {
+      background-color: darken(aliceblue, 1);
+      border-radius: 10px;
+      font-weight: bold;
+    }
   }
 }
