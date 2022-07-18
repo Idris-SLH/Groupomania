@@ -20,9 +20,7 @@ function Home() {
             <NewPostForm />
             <Thread />
           </div>
-          <div className="right-side">
             <Trends />
-          </div>
         </>
       ) : (
         <Log login={true} signup={false} />

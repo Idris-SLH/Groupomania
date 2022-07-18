@@ -25,23 +25,23 @@ function InfoBox() {
         <ul className="bubble">
           <li>
             <img src="./img/friends.png" alt="amis" />
-            Retrouver des amis
+            <p>Retrouver des amis</p>
           </li>
           <li>
             <img src="./img/group.png" alt="groupes" />
-            Groupes
+            <p>Groupes</p>
           </li>
           <li>
             <img src="./img/news.png" alt="actualités" />
-            Actualités
+            <p>Actualités</p>
           </li>
           <li>
             <img src="./img/event.png" alt="évenement" />
-            Évènements
+            <p>Évènements</p>
           </li>
           <li>
             <img src="./img/bookmarks.png" alt="favoris" />
-            Favoris
+            <p>Favoris</p>
           </li>
         </ul>
       </div>

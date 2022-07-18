@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { getPosts, createPost } from "../../actions/post.actions";
 import { isEmpty } from "../Utils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function NewPostForm() {
   const [isLoading, setIsLoading] = useState(true);
@@ -49,48 +50,71 @@ function NewPostForm() {
       {isLoading ? (
         <i className="fas fa-spinner fa-pulse"></i>
       ) : (
-        <div className="data">
-          <div className="user-info">
-            <NavLink exact="true" to="/profil">
-              <img src={userData.picture} alt="user-pic" className="avatar" />
-            </NavLink>
-            <p>
-              {userData.firstname} {userData.lastname}
-            </p>
+        <>
+          <div className="post-container__new">
+            <div className="post-container__new__top">
+              <NavLink exact="true" to="/profil">
+                <img
+                  src={userData.picture}
+                  alt="user-pic"
+                  className="post-container__new__top--avatar"
+                />
+              </NavLink>
+              <input
+                type="button"
+                value={"Quoi de neuf, " + userData.firstname + " ?"}
+                className="post-container__new__top--content"
+              />
+            </div>
+              <hr />
+            <div className="post-container__new__image">
+              <FontAwesomeIcon icon="fa-solid fa-file-image" />
+              <p className="">Photo/vidéo</p>
+            </div>
           </div>
-          <form action="" onSubmit={handlePost} className="form-update">
-            <textarea
-              name="message"
-              id="message"
-              placeholder="Quoi de neuf ?"
-              onChange={(e) => setMessage(e.target.value)}
-              value={message}
-            />
-            <label htmlFor="file-upload" className="upload-form">
-              Image
-            </label>
-            <input
-              type="file"
-              id="file-upload"
-              name="file"
-              accept=".jpg, .jpeg, .png, .webp"
-              onChange={(e) => handlePicture(e)}
-            />
-            <div className="content">
-              {postPicture ? (
-                <img src={postPicture} alt="preview" className="preview" />
-              ) : null}
+          <div className="data">
+            <div className="user-info">
+              <NavLink exact="true" to="/profil">
+                <img src={userData.picture} alt="user-pic" className="avatar" />
+              </NavLink>
+              <p>
+                {userData.firstname} {userData.lastname}
+              </p>
             </div>
-            <div className="button-send">
-              {message || postPicture || file ? (
-                <button className="cancel" onClick={handleCancel}>
-                  Annuler
-                </button>
-              ) : null}
-            </div>
-            <input className="submit-btn" type="submit" value="Enregister" />
-          </form>
-        </div>
+            <form action="" onSubmit={handlePost} className="form-update">
+              <textarea
+                name="message"
+                id="message"
+                placeholder="Quoi de neuf ?"
+                onChange={(e) => setMessage(e.target.value)}
+                value={message}
+              />
+              <label htmlFor="file-upload" className="upload-form">
+                Image
+              </label>
+              <input
+                type="file"
+                id="file-upload"
+                name="file"
+                accept=".jpg, .jpeg, .png, .webp"
+                onChange={(e) => handlePicture(e)}
+              />
+              <div className="content">
+                {postPicture ? (
+                  <img src={postPicture} alt="preview" className="preview" />
+                ) : null}
+              </div>
+              <div className="button-send">
+                {message || postPicture || file ? (
+                  <button className="cancel" onClick={handleCancel}>
+                    Annuler
+                  </button>
+                ) : null}
+              </div>
+              <input className="submit-btn" type="submit" value="Enregister" />
+            </form>
+          </div>
+        </>
       )}
     </div>
   );

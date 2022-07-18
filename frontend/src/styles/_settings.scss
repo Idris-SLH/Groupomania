@@ -8,6 +8,22 @@
   src: local("SFProDisplay"),
     url(./assets/fonts/SFProDisplay-Regular.ttf) format("truetype");
 }
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: transparent;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 10px;height: 100%;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #d1d1d1;
+  border-radius: 10px;
+}
 
 a {
   text-decoration: none;
@@ -27,8 +43,7 @@ li {
 }
 
 body {
-  background-color: lighten(#4e5166, 60);  
-
+  background-color: lighten(gray, 46);
   #root {
     display: flex;
     justify-content: center;
@@ -37,13 +52,9 @@ body {
       justify-content: space-evenly;
       width: 100%;
       max-width: 1920px;
-      margin: 70px 20px;
-      position: relative;
+      margin-top: 70px;
       .main {
         width: 45%;
-      }
-      .right-side {
-        width: 30%;
       }
     }
   }
@@ -82,7 +93,7 @@ input[type="date"] {
   &:hover {
     cursor: pointer;
     font-weight: bold;
-    background-color: darken($color: #fd2d01, $amount: 5);
+    box-shadow: 0px 0px 5px 0px lighten(#fd2b016c, 30);
     transition: 0.15s;
   }
 }
@@ -90,22 +101,22 @@ input[type="date"] {
 .bubble {
   background: #ffffff;
   border-radius: 15px;
-  padding: 7px;
   box-shadow: 0px 0px 8px 0px lighten(#4e5166, 50);
+  padding: 7px;
   li {
     text-decoration: none;
     color: #4e5166;
-    padding: 15px 20px;
+    padding: 0px 7px;
     display: flex;
     align-items: center;
     cursor: pointer;
     &:hover {
-      background-color: aliceblue;
+      background-color: lighten(#ffd7d7, 7);
       border-radius: 10px;
       font-weight: bold;
     }
     &:active {
-      background-color: darken(aliceblue, 1);
+      background-color: lighten(#ffd7d7, 7);
       border-radius: 10px;
       font-weight: bold;
     }
