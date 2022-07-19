@@ -24,7 +24,7 @@ function NavBar() {
           {uid ? (
             <>
               <div className="nav-container-info__searchbar">
-                <input type="text" placeholder="Rechercher"/>
+                <input type="text" placeholder="Rechercher" />
                 <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
                 <FontAwesomeIcon icon="fa-solid fa-bell" />
               </div>
@@ -50,7 +50,10 @@ function NavBar() {
                 >
                   <ul>
                     <NavLink exact="true" to="/profil">
-                      <li>Profil</li>
+                      <li>
+                        <FontAwesomeIcon icon="fa-solid fa-user-gear" />
+                        Profil
+                      </li>
                     </NavLink>
                     <LogOut />
                   </ul>

@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import cookie from "js-cookie";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function LogOut() {
   function removeCookie(key) {
@@ -20,7 +21,12 @@ function LogOut() {
     window.location = "/";
   }
 
-  return <li onClick={logout}>Déconnexion</li>;
+  return (
+    <li onClick={logout}>
+      <FontAwesomeIcon icon="fa-solid fa-right-to-bracket" />
+      Déconnexion
+    </li>
+  );
 }
 
 export default LogOut;

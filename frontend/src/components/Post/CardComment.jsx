@@ -27,7 +27,7 @@ function CommentCard({ post }) {
   return (
     <div className="comments-container">
       {count > 1 ? (
-        <p className="comment-info" onClick={() => setCount(1)}>
+        <p className="comment-info" onClick={() => setCount(0)}>
           Cache les commentaires
         </p>
       ) : (
@@ -76,6 +76,7 @@ function CommentCard({ post }) {
             onChange={(e) => setText(e.target.value)}
             value={text}
             placeholder="Laisser un commentaire"
+            id="comment-input"
           />
           <input className="submit-btn" type="submit" value="Envoyer" />
         </form>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { likeComment, likePost } from "../../actions/post.actions";
 import { getNameById } from "../Utils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function LikeButton({ object, postId, isComment = false }) {
   const [liked, setLiked] = useState(false);
@@ -26,25 +27,14 @@ function LikeButton({ object, postId, isComment = false }) {
 
   return (
     <>
-      <div className="like-container" >
-        {userData._id && liked === false && (
-          <p className="heart" onClick={like}>
-            {object.usersLiked.length} ❤ J'aime
-          </p>
-        )}
-        {userData._id && liked && (
-          <p className="heart-active" onClick={like}>
-            {object.usersLiked.length} ❤ Aimer
-          </p>
-        )}
-      </div>
-      <div className="like-name">
-        <ul>
-          {object.usersLiked.map((user) => (
-            <li key={user}>{getNameById(user, usersData)}</li>
-          ))}
-        </ul>
-      </div>
+      {userData._id && (
+        <p
+          className={`heart box ${liked ? "liked" : "notliked"}`}
+          onClick={like}
+        >
+         <FontAwesomeIcon icon="fa-solid fa-thumbs-up" /> J'aime
+        </p>
+      )}
     </>
   );
 }

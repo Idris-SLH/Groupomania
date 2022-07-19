@@ -66,13 +66,13 @@ function NewPostForm() {
                 className="post-container__new__top--content"
               />
             </div>
-              <hr />
+            <hr />
             <div className="post-container__new__image">
               <FontAwesomeIcon icon="fa-solid fa-file-image" />
               <p className="">Photo/vidéo</p>
             </div>
           </div>
-          <div className="data">
+          {/*<div className="data">
             <div className="user-info">
               <NavLink exact="true" to="/profil">
                 <img src={userData.picture} alt="user-pic" className="avatar" />
@@ -113,7 +113,7 @@ function NewPostForm() {
               </div>
               <input className="submit-btn" type="submit" value="Enregister" />
             </form>
-          </div>
+                </div>*/}
         </>
       )}
     </div>
