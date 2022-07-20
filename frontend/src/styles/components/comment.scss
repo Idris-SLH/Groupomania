@@ -1,7 +1,120 @@
 .comments-container {
-  img {
-    height: 50px;
-    width: 50px;
-    object-fit: cover;
+  p {
+    font-size: 13px;
+  }
+  &__show {
+    color: lighten(#4e5166, 17);
+    font-weight: bold;
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+  .comment-container {
+    display: flex;
+    max-width: 100%;
+    &__avatar {
+      margin-right: 6px;
+      width: 35px;
+      height: 35px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: lightgray 1px solid;
+      transition: filter 0.3s ease;
+      &:hover {
+        filter: brightness(85%);
+      }
+    }
+    width: 100%;
+    &__right {
+      &--content {
+        display: flex;
+        &-message {
+          background-color: lighten(lightgrey, 12);
+          border-radius: 20px;
+          padding: 0px 5px;
+          position: relative;
+          p {
+            overflow-wrap: anywhere;
+            margin: 8px;
+          }
+          p:first-child {
+            font-weight: bold;
+            cursor: pointer;
+          }
+          .userinfo {
+            position: absolute;
+            visibility: hidden;
+            top: 18px;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.75);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 8px 0px lighten(#000, 50);
+            color: white;
+            width: max-content;
+          }
+          p:first-child:hover {
+            + .userinfo {
+              visibility: visible;
+            }
+          }
+          textarea[type="text"] {
+            background-color: lighten(#4e5166, 61);
+            border-radius: 15px;
+            border-style: none;
+            font-size: medium;
+            width: max-content;
+            min-height: fit-content;
+            padding-left: 12px;
+            height: 35px;
+            color: lighten(#4e5166, 15);
+            font-weight: bold;
+            &:hover {
+              background-color: lighten(#4e5166, 59);
+            }
+            &:focus {
+              border-color: #4e5166;
+              background-color: lighten(#4e5166, 57);
+              outline: none;
+            }
+          }
+          .like-container {
+            position: absolute;
+            bottom: -10px;
+            right: -30px;
+          }
+        }
+        &-update {
+          background-color: pink;
+          margin: 50px;
+        }
+      }
+      &--info {
+        display: flex;
+        .heart {
+          font-weight: bold;
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+          .liked {
+            color: red;
+          }
+        }
+        .comment-date {
+          margin: auto 10px;
+        }
+      }
+    }
+  }
+  .comment-section {
+    display: flex;
+    padding: 10px 0px;
+    input[type="text"] {
+      font-size: 13px;
+      color: #000;
+      font-weight: normal;
+    }
   }
 }

@@ -77,3 +77,9 @@ export function isEmpty(value) {
     (typeof value === "string" && value.trim().length === 0)
   );
 }
+
+// IS AUTHOR
+export function isAuthor(userData, posterId) {
+  if (userData._id === posterId || userData.role === "ADMIN") return true;
+  else return false;
+}

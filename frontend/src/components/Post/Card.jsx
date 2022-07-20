@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Card({ post }) {
   const [isLoading, setIsLoading] = useState(true);
-  const [updated, setUpdated] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [textUpdate, setTextUpdate] = useState(post.message);
 
   const usersData = useSelector((state) => state.usersReducer);
@@ -68,21 +68,23 @@ function Card({ post }) {
               </p>
             </span>
             <br />
-            {userData._id === post.userId && (
-              <FontAwesomeIcon
-                icon="fa-solid fa-ellipsis"
-                className="card-container__user--update"
-                onClick={() => setUpdated(!updated)}
-              />
-            )}
-            {updated && (
-              <ul className="card-container__user--menu bubble">
-                <li>
-                  <FontAwesomeIcon icon="fa-solid fa-pen" /> Modifier
-                </li>
-                <DeleteCard post={post} />
-              </ul>
-            )}
+            <div className="update-btn">
+              {userData._id === post.userId && (
+                <FontAwesomeIcon
+                  icon="fa-solid fa-ellipsis"
+                  className="update-btn_icon"
+                  onClick={() => setIsOpen(!isOpen)}
+                />
+              )}
+              {isOpen && (
+                <ul className="update-btn_menu bubble">
+                  <li>
+                    <FontAwesomeIcon icon="fa-solid fa-pen" /> Modifier
+                  </li>
+                  <DeleteCard post={post} />
+                </ul>
+              )}
+            </div>
           </div>
           <div className="card-container__content">
             <p className="card-container__content--message">{post.message}</p>{" "}
@@ -96,12 +98,12 @@ function Card({ post }) {
           </div>
           <div className="card-container__info">
             {post.usersLiked.length ? (
-              <span className="card-container__info--like">
+              <span className="like-container">
                 <img src="./img/like.png" alt="like-pic" />
                 {post.usersLiked.length >= 2 ? (
                   <>
                     <p>{post.usersLiked.length}</p>
-                    <span className="like-container">
+                    <span className="like-container_list">
                       <ul>
                         {post.usersLiked.map((user) => (
                           <li key={user}>{getNameById(user, usersData)}</li>

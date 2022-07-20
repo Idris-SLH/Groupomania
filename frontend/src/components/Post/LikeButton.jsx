@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { likeComment, likePost } from "../../actions/post.actions";
-import { getNameById } from "../Utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function LikeButton({ object, postId, isComment = false }) {
@@ -25,6 +24,18 @@ function LikeButton({ object, postId, isComment = false }) {
     else setLiked(false);
   }, [userData._id, object.usersLiked, liked]);
 
+  if (isComment) {
+    return (
+      <>
+        {userData._id && (
+          <p className={`heart ${liked ? "liked" : "notliked"}`} onClick={like}>
+            J'aime
+          </p>
+        )}
+      </>
+    );
+  }
+
   return (
     <>
       {userData._id && (
@@ -32,7 +43,7 @@ function LikeButton({ object, postId, isComment = false }) {
           className={`heart box ${liked ? "liked" : "notliked"}`}
           onClick={like}
         >
-         <FontAwesomeIcon icon="fa-solid fa-thumbs-up" /> J'aime
+          <FontAwesomeIcon icon="fa-solid fa-thumbs-up" /> J'aime
         </p>
       )}
     </>

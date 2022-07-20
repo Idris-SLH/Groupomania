@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createComment, getPosts } from "../../actions/post.actions";
-import { isEmpty, getNameById, getInfoById, dateParser } from "../Utils";
+import { isEmpty, dateParser } from "../Utils";
 import LikeButton from "./LikeButton";
 import UpdateComment from "./UpdateComment";
 
@@ -13,8 +13,7 @@ function CommentCard({ post }) {
   const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
-  async function handleComment(e) {
-    e.preventDefault();
+  async function handleComment() {
     if (text) {
       dispatch(createComment(post._id, userData._id, text)).then(() =>
         dispatch(getPosts())
@@ -24,15 +23,21 @@ function CommentCard({ post }) {
     }
   }
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleComment();
+    }
+  };
+
   return (
     <div className="comments-container">
-      {count > 1 ? (
-        <p className="comment-info" onClick={() => setCount(0)}>
+      {count >= 1 ? (
+        <p className="comments-container__show" onClick={() => setCount(0)}>
           Cache les commentaires
         </p>
       ) : (
         <p
-          className="comment-info"
+          className="comments-container__show"
           onClick={() => setCount(post.comments.length)}
         >
           Afficher tout les commentaires (<span>{post.comments.length}</span>)
@@ -41,45 +46,51 @@ function CommentCard({ post }) {
       {post.comments.slice(0, count).map((comment) => {
         return (
           <div className="comment-container" key={comment._id}>
-            <div className="left-part">
-              <img
-                src={
-                  !isEmpty(usersData[0]) &&
-                  usersData
-                    .map((user) => {
-                      if (user._id === comment.userId) return user.picture;
-                      else return null;
-                    })
-                    .join("")
-                }
-                alt="comment-pic"
-              />
-            </div>
-            <div className="right-part">
-              <div className="comment-header">
-                <h4>{getNameById(comment.userId, usersData)}</h4>
-                <p>{getInfoById(comment.userId, usersData)}</p>
-              </div>
+            <img
+              src={
+                !isEmpty(usersData[0]) &&
+                usersData
+                  .map((user) => {
+                    if (user._id === comment.userId) return user.picture;
+                    else return null;
+                  })
+                  .join("")
+              }
+              alt="comment-pic"
+              className="comment-container__avatar"
+            />
+            <div className="comment-container__right">
               <UpdateComment comment={comment} post={post} />
-              <LikeButton object={comment} postId={post._id} isComment={true}/>
-              <p className="comment-date">{dateParser(comment.timestamp)}</p>
+              <div className="comment-container__right--info">
+                <LikeButton
+                  object={comment}
+                  postId={post._id}
+                  isComment={true}
+                />
+                <p className="comment-date">{dateParser(comment.timestamp)}</p>
+              </div>
             </div>
           </div>
         );
       })}
       {userData._id && (
-        <form action="" onSubmit={handleComment} className="comment-form">
-          <textarea
+        <div className="comment-section">
+          <img
+            src={userData.picture}
+            alt="comment-pic"
+            className="comment-container__avatar"
+          />
+          <input
             className="input-form"
             type="text"
             name="text"
-            onChange={(e) => setText(e.target.value)}
             value={text}
             placeholder="Laisser un commentaire"
             id="comment-input"
+            onKeyDown={handleKeyDown}
+            onChange={(e) => setText(e.target.value)}
           />
-          <input className="submit-btn" type="submit" value="Envoyer" />
-        </form>
+        </div>
       )}
     </div>
   );
