@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updatePost } from "../../actions/post.actions";
-import { dateParser, getInfoById, getNameById, isEmpty } from "../Utils";
+import { timeSince, getNameById, isAutor, isEmpty } from "../Utils";
 import LikeButton from "./LikeButton";
 import DeleteCard from "./DeleteCard";
 import CommentCard from "./CardComment";
@@ -17,11 +17,11 @@ function Card({ post }) {
   const dispatch = useDispatch();
 
   function updateItem() {
-    dispatch(updatePost(post._id, post.userId, userData._id, textUpdate));
+    dispatch(updatePost(post._id, post.userId, userData.role, userData._id, textUpdate));
   }
 
   function commentFocus(e) {
-    e.target.parentElement.parentElement.lastChild.lastChild.firstChild.focus();
+    e.target.parentElement.parentElement.lastChild.lastChild.lastChild.firstChild.focus();
   }
   function commentActive(e) {
     e.target.parentElement.parentElement.lastChild.lastChild.firstChild.click();
@@ -64,12 +64,12 @@ function Card({ post }) {
                     .join("")}
               </p>
               <p className="card-container__user--date">
-                il y a {dateParser(post.createdAt)}
+                il y a { timeSince(post.createdAt)}
               </p>
             </span>
             <br />
             <div className="update-btn">
-              {userData._id === post.userId && (
+              {isAutor(userData, post.userId) && (
                 <FontAwesomeIcon
                   icon="fa-solid fa-ellipsis"
                   className="update-btn_icon"
@@ -87,7 +87,7 @@ function Card({ post }) {
             </div>
           </div>
           <div className="card-container__content">
-            <p className="card-container__content--message">{post.message}</p>{" "}
+            <p className="card-container__content--message">{post.message}</p>
             {post.picture && (
               <img
                 src={post.picture}

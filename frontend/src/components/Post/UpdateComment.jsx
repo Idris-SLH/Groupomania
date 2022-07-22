@@ -2,9 +2,10 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteComment, updateComment } from "../../actions/post.actions";
-import { getNameById, getInfoById } from "../Utils";
+import { getNameById, getInfoById, isAutor } from "../Utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import DeleteCard from "./DeleteCard";
+import TextareaAutosize from "react-textarea-autosize";
+import Picker from "emoji-picker-react";
 
 function UpdateComment({ comment, post }) {
   const [isUpdated, setIsUpdated] = useState(false);
@@ -12,7 +13,11 @@ function UpdateComment({ comment, post }) {
   const [textUpdate, setTextUpdate] = useState(comment.message);
   const userData = useSelector((state) => state.userReducer);
   const usersData = useSelector((state) => state.usersReducer);
+  const [emojiPicker, setEmojiPicker] = useState(false);
 
+  const onEmojiClick = (event, emojiObject) => {
+    setTextUpdate(textUpdate + emojiObject.emoji);
+  };
   const dispatch = useDispatch();
 
   function handleEdit() {
@@ -21,6 +26,7 @@ function UpdateComment({ comment, post }) {
         post._id,
         comment._id,
         comment.userId,
+        userData.role,
         userData._id,
         textUpdate
       )
@@ -31,7 +37,13 @@ function UpdateComment({ comment, post }) {
 
   function handleDelete() {
     dispatch(
-      deleteComment(post._id, comment._id, comment.userId, userData._id)
+      deleteComment(
+        post._id,
+        comment._id,
+        comment.userId,
+        userData.role,
+        userData._id
+      )
     );
   }
 
@@ -43,19 +55,38 @@ function UpdateComment({ comment, post }) {
 
   return (
     <div className="comment-container__right--content">
-      <div className="comment-container__right--content-message">
+      <div
+        className={`comment-container__right--content-message ${
+          isUpdated && "active"
+        }`}
+      >
         <p>{getNameById(comment.userId, usersData)}</p>
-        <p className="userinfo">{getInfoById(comment.userId, usersData)}</p>
+        {getInfoById(comment.userId, usersData) && (
+          <p className="userinfo">{getInfoById(comment.userId, usersData)}</p>
+        )}
         {isUpdated === false && <p>{comment.message}</p>}
         {isUpdated && (
-          <>
-            <textarea
+          <div className="comment-section__input">
+            <TextareaAutosize
               defaultValue={comment.message}
               type="text"
+              name="text"
+              value={textUpdate}
               onKeyDown={handleKeyDown}
               onChange={(e) => setTextUpdate(e.target.value)}
             />
-          </>
+            <FontAwesomeIcon
+              icon="fa-regular fa-face-smile"
+              onClick={() => setEmojiPicker(!emojiPicker)}
+            />
+            {emojiPicker && (
+              <Picker
+                onEmojiClick={onEmojiClick}
+                disableSkinTonePicker="true"
+                disableSearchBar="true"
+              />
+            )}
+          </div>
         )}
         {comment.usersLiked.length ? (
           <span className="like-container">
@@ -78,7 +109,7 @@ function UpdateComment({ comment, post }) {
         )}
       </div>
       <div className="update-btn">
-        {userData._id === comment.userId && (
+        {isAutor(userData, comment.userId) && (
           <FontAwesomeIcon
             icon="fa-solid fa-ellipsis"
             className="update-btn_icon"

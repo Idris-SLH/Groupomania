@@ -12,7 +12,6 @@
   }
   .comment-container {
     display: flex;
-    max-width: 100%;
     &__avatar {
       margin-right: 6px;
       width: 35px;
@@ -25,15 +24,19 @@
         filter: brightness(85%);
       }
     }
-    width: 100%;
     &__right {
+      width: 100%;
       &--content {
         display: flex;
         &-message {
-          background-color: lighten(lightgrey, 12);
+          &.active {
+            width: 100%;
+          }
+          background-color: lighten(lightgrey, 14);
           border-radius: 20px;
           padding: 0px 5px;
           position: relative;
+          width: auto;
           p {
             overflow-wrap: anywhere;
             margin: 8px;
@@ -45,6 +48,7 @@
           .userinfo {
             position: absolute;
             visibility: hidden;
+            z-index: 2;
             top: 18px;
             left: 0;
             background-color: rgba(0, 0, 0, 0.75);
@@ -57,26 +61,6 @@
           p:first-child:hover {
             + .userinfo {
               visibility: visible;
-            }
-          }
-          textarea[type="text"] {
-            background-color: lighten(#4e5166, 61);
-            border-radius: 15px;
-            border-style: none;
-            font-size: medium;
-            width: max-content;
-            min-height: fit-content;
-            padding-left: 12px;
-            height: 35px;
-            color: lighten(#4e5166, 15);
-            font-weight: bold;
-            &:hover {
-              background-color: lighten(#4e5166, 59);
-            }
-            &:focus {
-              border-color: #4e5166;
-              background-color: lighten(#4e5166, 57);
-              outline: none;
             }
           }
           .like-container {
@@ -94,6 +78,7 @@
         display: flex;
         .heart {
           font-weight: bold;
+          margin: 5px;
           &:hover {
             text-decoration: underline;
             cursor: pointer;
@@ -103,7 +88,7 @@
           }
         }
         .comment-date {
-          margin: auto 10px;
+          margin: auto 0px;
         }
       }
     }
@@ -111,10 +96,42 @@
   .comment-section {
     display: flex;
     padding: 10px 0px;
-    input[type="text"] {
-      font-size: 13px;
-      color: #000;
-      font-weight: normal;
+    align-items: center;
+    &__avatar {
+      background-color: red;
+      margin-right: 6px;
+      width: 35px;
+      height: 35px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: lightgray 1px solid;
+      transition: filter 0.3s ease;
+      &:hover {
+        filter: brightness(85%);
+      }
+    }
+    &__input {
+      width: 100%;
+      margin: 5px;
+      position: relative;
+
+      svg {
+        position: absolute;
+        right: 7px;
+        top: 50%;
+        opacity: 0.4;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      aside {
+        z-index: 1;
+        position: absolute;
+        right: 0;
+        top: 100%;
+      }
     }
   }
 }

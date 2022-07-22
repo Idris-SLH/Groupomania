@@ -4,7 +4,7 @@ const fs = require("fs");
 // GET ALL USERS
 exports.getAllUsers = (req, res, next) => {
   UserModel.find()
-    .select("-password -role -updatedAt -__v")
+    .select("-password  -updatedAt -__v")
     .then((users) => res.status(200).json(users))
     .catch((error) => res.status(400).json({ error }));
 };
@@ -12,7 +12,7 @@ exports.getAllUsers = (req, res, next) => {
 // GET ON USER
 exports.getOneUser = (req, res, next) => {
   UserModel.findOne({ _id: req.params.id })
-    .select("-password -role -updatedAt -__v")
+    .select("-password  -updatedAt -__v")
     .then((users) => res.status(200).json(users))
     .catch((error) => res.status(400).json({ error }));
 };

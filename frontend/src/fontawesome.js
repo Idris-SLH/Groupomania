@@ -12,6 +12,7 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faUserGear } from "@fortawesome/free-solid-svg-icons";
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faFaceSmile } from "@fortawesome/free-regular-svg-icons";
 
 library.add(
   faCircle,
@@ -25,5 +26,6 @@ library.add(
   faPen,
   faUserGear,
   faMessage,
-  faThumbsUp
+  faThumbsUp,
+  faFaceSmile
 );

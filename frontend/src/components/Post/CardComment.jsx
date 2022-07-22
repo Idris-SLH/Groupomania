@@ -1,21 +1,29 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createComment, getPosts } from "../../actions/post.actions";
-import { isEmpty, dateParser } from "../Utils";
+import { isEmpty, timeSince } from "../Utils";
 import LikeButton from "./LikeButton";
 import UpdateComment from "./UpdateComment";
+import Picker from "emoji-picker-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import TextareaAutosize from "react-textarea-autosize";
 
 function CommentCard({ post }) {
+  const [emojiPicker, setEmojiPicker] = useState(false);
   const [text, setText] = useState("");
   const [count, setCount] = useState(1);
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
+  const onEmojiClick = (event, emojiObject) => {
+    setText(text + emojiObject.emoji);
+  };
+
   async function handleComment() {
-    if (text) {
-      dispatch(createComment(post._id, userData._id, text)).then(() =>
+    let message = text.trim();
+    if (message !== null && message !== "") {
+      dispatch(createComment(post._id, userData._id, message)).then(() =>
         dispatch(getPosts())
       );
       await setCount(post.comments.length + 1);
@@ -26,23 +34,46 @@ function CommentCard({ post }) {
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handleComment();
+      setText(text.trim());
     }
   };
 
   return (
     <div className="comments-container">
-      {count >= 1 ? (
-        <p className="comments-container__show" onClick={() => setCount(0)}>
-          Cache les commentaires
-        </p>
+      {post.comments.length > 1 ? (
+        <>
+          {count > 1 ? (
+            <p className="comments-container__show" onClick={() => setCount(0)}>
+              Cache les commentaires
+            </p>
+          ) : (
+            <>
+              {count === 1 ? (
+                <p
+                  className="comments-container__show"
+                  onClick={() => setCount(post.comments.length)}
+                >
+                  Afficher{" "}
+                  {post.comments.length === 2
+                    ? "l'autre"
+                    : `les ${post.comments.length - 1} autres`}{" "}
+                  commentaire{post.comments.length === 2 ? null : "s"}
+                </p>
+              ) : (
+                <p
+                  className="comments-container__show"
+                  onClick={() => setCount(post.comments.length)}
+                >
+                  Afficher tout les commentaires ({post.comments.length})
+                </p>
+              )}
+            </>
+          )}
+        </>
       ) : (
-        <p
-          className="comments-container__show"
-          onClick={() => setCount(post.comments.length)}
-        >
-          Afficher tout les commentaires (<span>{post.comments.length}</span>)
-        </p>
+        <p></p>
       )}
+
       {post.comments.slice(0, count).map((comment) => {
         return (
           <div className="comment-container" key={comment._id}>
@@ -67,7 +98,7 @@ function CommentCard({ post }) {
                   postId={post._id}
                   isComment={true}
                 />
-                <p className="comment-date">{dateParser(comment.timestamp)}</p>
+                <p className="comment-date">{timeSince(comment.timestamp)}</p>
               </div>
             </div>
           </div>
@@ -75,21 +106,35 @@ function CommentCard({ post }) {
       })}
       {userData._id && (
         <div className="comment-section">
-          <img
-            src={userData.picture}
-            alt="comment-pic"
-            className="comment-container__avatar"
-          />
-          <input
-            className="input-form"
-            type="text"
-            name="text"
-            value={text}
-            placeholder="Laisser un commentaire"
-            id="comment-input"
-            onKeyDown={handleKeyDown}
-            onChange={(e) => setText(e.target.value)}
-          />
+          <span>
+            <img
+              src={userData.picture}
+              alt="comment-pic"
+              className="comment-section__avatar"
+            />
+          </span>
+          <div className="comment-section__input">
+            <TextareaAutosize
+              type="text"
+              name="text"
+              value={text}
+              placeholder="Laisser un commentaire"
+              id="comment-input"
+              onKeyDown={handleKeyDown}
+              onChange={(e) => setText(e.target.value)}
+            />
+            <FontAwesomeIcon
+              icon="fa-regular fa-face-smile"
+              onClick={() => setEmojiPicker(!emojiPicker)}
+            />
+            {emojiPicker && (
+              <Picker
+                onEmojiClick={onEmojiClick}
+                disableSkinTonePicker="true"
+                disableSearchBar="true"
+              />
+            )}
+          </div>
         </div>
       )}
     </div>

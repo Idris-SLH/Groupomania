@@ -8,7 +8,7 @@ function DeleteCard({ post }) {
   const userData = useSelector((state) => state.userReducer);
 
   function deleteQuote() {
-    dispatch(deletePost(post._id, post.userId, userData._id));
+    dispatch(deletePost(post._id, post.userId, userData.role, userData._id));
   }
 
   return (

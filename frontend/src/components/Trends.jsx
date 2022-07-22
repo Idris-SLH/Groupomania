@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTrends } from "../actions/post.actions";
-import { dateParser, isEmpty } from "./Utils";
+import { timeSince, isEmpty } from "./Utils";
 
 function Trends() {
   const posts = useSelector((state) => state.allPostsReducer);
@@ -56,7 +56,7 @@ function Trends() {
                             .join("")}
                       </p>
                       <p className="card-container__user--date">
-                        il y a {dateParser(post.createdAt)}
+                        {timeSince(post.createdAt)}
                       </p>
                     </span>
                   </div>
@@ -92,8 +92,8 @@ function Trends() {
             usersData.map((user) => {
               return (
                 <li key={user._id}>
-                    <img src={user.picture} alt="user-pic" />
-                    <p>{user.firstname + " " + user.lastname}</p>
+                  <img src={user.picture} alt="user-pic" />
+                  <p>{user.firstname + " " + user.lastname}</p>
                 </li>
               );
             })}

@@ -18,7 +18,10 @@ export default function userReducer(state = initialState, action) {
     case UPDATE_POST:
       return state.map((post) => {
         if (post._id === action.payload.postId) {
-          if (post.userId === action.payload.userId) {
+          if (
+            post.userId === action.payload.userId ||
+            action.payload.posterRole === "ADMIN"
+          ) {
             return {
               ...post,
               message: action.payload.message,
@@ -28,7 +31,10 @@ export default function userReducer(state = initialState, action) {
       });
 
     case DELETE_POST:
-      if (action.payload.userId === action.payload.posterId) {
+      if (
+        action.payload.userId === action.payload.posterId ||
+        action.payload.posterRole === "ADMIN"
+      ) {
         return state.filter((post) => post._id !== action.payload.postId);
       }
       return state;
@@ -60,7 +66,10 @@ export default function userReducer(state = initialState, action) {
             ...post,
             comments: post.comments.map((comment) => {
               if (comment._id === action.payload.commentId) {
-                if (comment.userId === action.payload.userId) {
+                if (
+                  comment.userId === action.payload.userId ||
+                  action.payload.posterRole === "ADMIN"
+                ) {
                   return {
                     ...comment,
                     message: action.payload.message,
@@ -73,7 +82,10 @@ export default function userReducer(state = initialState, action) {
       });
 
     case DELETE_COMMENT:
-      if (action.payload.userId === action.payload.posterId) {
+      if (
+        action.payload.userId === action.payload.posterId ||
+        action.payload.posterRole === "ADMIN"
+      ) {
         return state.map((post) => {
           if (post._id === action.payload.postId) {
             return {
@@ -86,33 +98,32 @@ export default function userReducer(state = initialState, action) {
         });
       } else return state;
 
-      case LIKE_COMMENT:
-        return state.map((post) => {
-          if (post._id === action.payload.postId) {
-            return {
-              ...post,
-              comments: post.comments.map((comment) => {
-                if (comment._id === action.payload.commentId) {
-                  if (comment.usersLiked.includes(action.payload.userId)) {
-                    return {
-                      ...comment,
-                      usersLiked: comment.usersLiked.filter(
-                        (id) => id !== action.payload.userId
-                      ),
-                    };
-                  } else {
-                    return {
-                      ...comment,
-                      usersLiked: [action.payload.userId, ...comment.usersLiked],
-                    };
-                  }
-                } else return comment;
-              }),
-            };
-          } else return post;
-        });
+    case LIKE_COMMENT:
+      return state.map((post) => {
+        if (post._id === action.payload.postId) {
+          return {
+            ...post,
+            comments: post.comments.map((comment) => {
+              if (comment._id === action.payload.commentId) {
+                if (comment.usersLiked.includes(action.payload.userId)) {
+                  return {
+                    ...comment,
+                    usersLiked: comment.usersLiked.filter(
+                      (id) => id !== action.payload.userId
+                    ),
+                  };
+                } else {
+                  return {
+                    ...comment,
+                    usersLiked: [action.payload.userId, ...comment.usersLiked],
+                  };
+                }
+              } else return comment;
+            }),
+          };
+        } else return post;
+      });
 
-        
     default:
       return state;
   }

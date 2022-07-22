@@ -2,6 +2,7 @@
 * {
   font-family: "SFProDisplay", sans-serif;
   font-size: 15px;
+  box-sizing: border-box;
 }
 @font-face {
   font-family: "SFProDisplay";
@@ -63,7 +64,8 @@ body {
 
 input[type="text"],
 input[type="password"],
-input[type="date"] {
+input[type="date"],
+textarea {
   background-color: lighten(#4e5166, 61);
   border-radius: 15px;
   border-style: none;
@@ -102,7 +104,7 @@ input[type="date"] {
 .bubble {
   background: #ffffff;
   border-radius: 15px;
-  box-shadow: 0px 0px 8px 0px lighten(#4e5166, 50);
+  box-shadow: 0px 0px 4px 0px lighten(#4e5166, 50);
   padding: 7px;
   li {
     text-decoration: none;
@@ -164,6 +166,7 @@ hr {
 .update-btn {
   position: relative;
   margin: auto 15px;
+
   .update-btn_icon {
     margin: auto;
     font-size: 18px;
@@ -179,6 +182,7 @@ hr {
     }
   }
   .update-btn_menu {
+    z-index: 1;
     position: absolute;
     right: 5px;
     top: 30px;
@@ -194,12 +198,13 @@ hr {
   color: #575866;
   align-items: center;
   position: relative;
+  z-index: 1;
+
   img {
     height: 18px;
   }
   &_list {
     ul {
-      z-index: 2;
       position: absolute;
       visibility: hidden;
       top: 30px;
@@ -221,5 +226,17 @@ hr {
     ul {
       visibility: visible;
     }
+    text-decoration: underline;
+    cursor: pointer;
   }
+}
+
+textarea {
+  font-size: 13px;
+  color: #000;
+  font-weight: normal;
+  resize: none;
+  overflow: hidden;
+  width: 100%;
+  padding: 10px 25px 10px 10px;
 }

@@ -44,7 +44,7 @@ export const createPost = (data) => {
   };
 };
 
-export const updatePost = (postId, posterId, userId, message) => {
+export const updatePost = (postId, posterId, posterRole, userId, message) => {
   return (dispatch) => {
     return axios
       .put(`${process.env.REACT_APP_API_URL}api/post/${postId}`, {
@@ -55,14 +55,14 @@ export const updatePost = (postId, posterId, userId, message) => {
       .then(() => {
         dispatch({
           type: UPDATE_POST,
-          payload: { postId, posterId, userId, message },
+          payload: { postId, posterId, posterRole, userId, message },
         });
       })
       .catch((err) => console.log(err));
   };
 };
 
-export const deletePost = (postId, posterId, userId) => {
+export const deletePost = (postId, posterId, posterRole, userId) => {
   return (dispatch) => {
     return axios
       .delete(`${process.env.REACT_APP_API_URL}api/post/${postId}`, {
@@ -74,7 +74,7 @@ export const deletePost = (postId, posterId, userId) => {
       .then(() => {
         dispatch({
           type: DELETE_POST,
-          payload: { postId, posterId, userId },
+          payload: { postId, posterId, posterRole, userId },
         });
       })
       .catch((err) => console.log(err));
@@ -112,7 +112,7 @@ export const createComment = (postId, userId, message) => {
   };
 };
 
-export const updateComment = (postId, commentId, posterId, userId, message) => {
+export const updateComment = (postId, commentId, posterId, posterRole, userId, message) => {
   return (dispatch) => {
     return axios
       .patch(
@@ -127,14 +127,14 @@ export const updateComment = (postId, commentId, posterId, userId, message) => {
       .then(() => {
         dispatch({
           type: UPDATE_COMMENT,
-          payload: { postId, commentId, userId, message },
+          payload: { postId, commentId, posterRole, userId, message },
         });
       })
       .catch((err) => console.log(err));
   };
 };
 
-export const deleteComment = (postId, commentId, posterId, userId) => {
+export const deleteComment = (postId, commentId, posterId, posterRole, userId) => {
   return (dispatch) => {
     return axios
       .patch(
@@ -148,7 +148,7 @@ export const deleteComment = (postId, commentId, posterId, userId) => {
       .then(() => {
         dispatch({
           type: DELETE_COMMENT,
-          payload: { postId, commentId, posterId, userId },
+          payload: { postId, commentId, posterId, posterRole, userId },
         });
       })
       .catch((err) => console.log(err));
